@@ -1,0 +1,86 @@
+
+.lis .list-item{
+   
+    width: 900px;
+    display: flex;
+    border: 2px solid  #F7F9FC;
+    color:#2C435A;
+    border-radius: 3px;
+    max-height: 30px;
+    font-family: 'Bahnschrift';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    
+ } 
+ .lis{
+    
+        height: 350px; /* or any other value that fits your layout */
+        overflow-y: scroll;
+         margin-top: 20px;
+ }
+ 
+ .lis  .lis::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+  }
+  
+  .lis  .lis::-webkit-scrollbar-track {
+    background:#F7F9FC; /* Color of the scrollbar track */
+  }
+  
+  .lis .lis::-webkit-scrollbar-thumb {
+    background-color:#0B59A1; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+    /* Rounded corners of the scrollbar thumb */
+  }
+  
+  .lis .employé-list {
+    list-style: none;
+    margin-left: 320px;
+    
+  }
+  
+  .lis .complete{
+    text-decoration-style: solid;
+    text-decoration-line: line-through;
+    text-decoration-color: blue;
+    opacity: 0.6;
+ }
+ .lis .list{
+    width: 220px;
+    background-color: blueviolet;
+    border: none;
+    color: brown;
+    font-size: 20px;
+    margin-right: 15px;
+ }
+ .lis  input :focus,
+ .lis button :focus{
+  outline: none;
+ }
+ .button-edit{
+    color: #0B59A1;
+    background-color: white;
+   border: none;
+   font-family: 'Bahnschrift';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 20px;
+   line-height: 24px;
+   
+    
+ }
+ 
+ .lis .button-delete{
+    margin-left: 800px;
+    color:#FF3548;
+    background-color: white;
+   border: none;
+   font-family: 'Bahnschrift';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 20px;
+   line-height: 24px;
+ }

@@ -1,0 +1,23 @@
+.formm .task-input{
+   
+    margin-left: 600px;
+    margin-top: 155px;
+    outline: none;
+    width: 260px;
+    height: 30px;
+    margin-right: 25px;
+    font-size: 20px;
+    color: red;
+    background-color:white;
+    border: 1px solid #B6B6B6;
+    border-radius: 10px;
+}
+.formm .button-add{
+    width: 70px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: #B6B6B6;
+    background-color:white;
+    cursor: pointer;
+    color: #B6B6B6;
+}
