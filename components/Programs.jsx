@@ -1,26 +1,27 @@
+'use client'
 import React from 'react'
 import AccordionItem from './AccordionItem'
+import { useState ,useEffect } from "react"
 
-const items = [
-    {
-      title: "Item 1",
-      content: "      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore odit voluptatibus accusamus voluptatem nesciunt id ex nihil? Ipsa, fugit modi!      "
-    },
-    {
-      title: "Item 2",
-      content: "      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore odit voluptatibus accusamus voluptatem nesciunt id ex nihil? Ipsa, fugit modi!      " } ]
+
+
+
 export default function Programs() {
-    
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    fetch('https://server-social-benefits.vercel.app/socialBenefits')
+      .then(response => response.json())
+      .then(data => setItems(data))
+      .catch(error => console.error('Error fetching programs:', error));
+  }, []);
   return (
-    <div id='programs' className='w-screen max-w-[65rem] flex items-center flex-col'>
-        <p className="text-5xl text-center font-mono mt-20  border-b-2 border-red-600  text-blue-900">Notre Programmes</p>
- <div className="divide-y   mt-12">
-    {items.map(({ title, content }, index) => (
-      <AccordionItem key={index} title={title} content={content} />
-    ))}
-  </div>
-
+    <div id="programs" className="w-screen max-w-[65rem] flex items-center flex-col">
+      <p className="text-5xl text-center font-mono mt-20 border-b-2 border-red-600 text-blue-900">Notre Programmes</p>
+      <div className="divide-y mt-12">
+        {items.map(({  title, description, coverage, needed_proofs }, index) => (
+          <AccordionItem key={index} title={title} description={description} coverage={coverage} needed_proofs={needed_proofs}/>
+        ))}
+      </div>
     </div>
-   
-  )
+  );
 }

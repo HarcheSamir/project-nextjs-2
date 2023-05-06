@@ -2,7 +2,8 @@
 import { useState } from "react";
 import {IoIosArrowDropdown} from 'react-icons/io'
 import {CgShapeHexagon} from 'react-icons/cg'
-export default function AccordionItem({ title, content }) {
+
+export default function AccordionItem({ title, description, coverage, needed_proofs }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -31,23 +32,18 @@ export default function AccordionItem({ title, content }) {
         <div className="flex items-center  flex-row w-full">
           <CgShapeHexagon className="text-red-500 mr-1" />
           <p className="whitespace-nowrap text-red-500 font-bold"> Description : &nbsp;</p>
-        <p className="truncate w-full"> {content}</p>
+        <p className="truncate w-full"> {description}</p>
         </div>
 
         <div className="flex items-center  flex-row w-full">
           <CgShapeHexagon className="text-red-500 mr-1" />
-          <p className="whitespace-nowrap text-red-500 font-bold"> Pourcentage / Montant De Remboursement : &nbsp;</p>
-        <p className="truncate w-full"> {content}</p>
-        </div>
-        <div className="flex items-center  flex-row w-full">
-          <CgShapeHexagon className="text-red-500 mr-1" />
-          <p className="whitespace-nowrap text-red-500 font-bold"> Employés Concernés : &nbsp;</p>
-        <p className="truncate w-full"> {content}</p>
+          <p className="whitespace-nowrap text-red-500 font-bold"> Coverage : &nbsp;</p>
+        <p className="truncate w-full"> {coverage}</p>
         </div>
         <div className="flex items-center  flex-row w-full">
           <CgShapeHexagon className="text-red-500 mr-1" />
           <p className="whitespace-nowrap text-red-500 font-bold"> Papiers Demandés : &nbsp;</p>
-        <p className="truncate w-full"> {content}</p>
+        <p className="truncate w-full"> {needed_proofs}</p>
         </div>
 
       </div>
