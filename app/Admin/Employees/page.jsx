@@ -55,7 +55,7 @@ export default function page() {
       </div>
 
 
-      <div className="relative h-full w-[30%]">
+      <div className="relative h-full w-[90%] sm:w-[30%]">
         <input
           type="text"
           id="search"
