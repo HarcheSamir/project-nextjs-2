@@ -112,9 +112,12 @@ useEffect(() => {
 
 
 
-    <div className='hidden sm:block mt-8 rounded-full border-2 border-neutral-500 hover:scale-110 aspect-square p-1 w-[30%]'><div className='relative  overflow-hidden w-full h-full aspect-square  rounded-full bg-white '><img  className='p-2 object-cover scale-150  w-full h-full' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={profileImageUrl}/></div></div> 
-    <p className='hidden sm:block font-bold mt-2 text-xs font text-neutral-200'>Administration</p>
-  
+    <div className='hidden  relative overflow-hidden ring-2 ring-zinc-500 sm:block mt-8 rounded-full   hover:scale-110 aspect-square  w-[40%]'>
+    <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={profileImageUrl}/>
+    </div> 
+    <p className='hidden sm:block font-bold mt-2 text-sm font text-neutral-100'>{account.name}</p>
+    <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account.job}</p>
+
  
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">
   <Link href='/Employee/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Requests</div></Link>
