@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu , AiOutlineClose} from 'react-icons/ai';
 import {BsFillPeopleFill ,BsFillCollectionFill ,BsStars, BsStar } from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
 
@@ -50,7 +50,11 @@ export default function Admin({ children }) {
 
     <div className="flex w-full px-4 mt-4 flex-row justify-between">
        <GoSettings  className='w-5 hidden sm:block h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
-       <AiOutlineMenu onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+      <div>
+      { nav ? <AiOutlineClose onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+      : <AiOutlineMenu onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+  }
+        </div>
     <GoSignOut onClick={()=>{ setLoadingButton(true) ; localStorage.removeItem('token') ;localStorage.removeItem('id') ;router.push('/') } } className={`${isLoadingButton && 'hidden'} w-5 cursor-pointer h-5 hover:text-neutral-100 hover:scale-125 text-neutral-400`} />
     {isLoadingButton ? (
         <svg
