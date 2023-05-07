@@ -164,7 +164,7 @@ export default  function Page() {
 
 <p className='border-b ml-3 font-bold  w-min whitespace-nowrap cursor-pointer hover:scale-110 hover:text-blue-800 hover:border-blue-500 border-red-500 text-red-500 text-xs'>Forgot Password ?</p>
     <div className='flex mt-8 flex-row w-full justify-center items-center'>
-        <p className='text-xs text-neutral-500'>Don't have an account ?</p>
+        <p className='text-xs text-neutral-500'>Don&apos;t have an account ?</p>
         <p className='border-b font-bold cursor-pointer ml-1 hover:text-blue-800 hover:border-blue-500 hover:scale-105 border-red-500 text-red-500 text-xs '> Contact Admin</p>
  </div>    
 
