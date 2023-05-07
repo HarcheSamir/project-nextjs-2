@@ -119,8 +119,8 @@ useEffect(() => {
     <div className='hidden  relative overflow-hidden ring-2 ring-zinc-500 sm:block mt-8 rounded-full   hover:scale-110 aspect-square  w-[40%]'>
     <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={profileImageUrl}/>
     </div> 
-    <p className='hidden sm:block font-bold mt-2 text-sm font text-neutral-100'>{account.name}</p>
-    <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account.job}</p>
+    <p className='hidden sm:block font-bold mt-2 text-xl font-mono text-neutral-100'>{account?.name}</p>
+    <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account?.job}</p>
 
  
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">

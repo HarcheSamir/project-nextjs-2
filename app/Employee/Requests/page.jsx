@@ -49,7 +49,7 @@ export default function SearchPage() {
 
 
 
-      <div className="relative h-full w-[30%]">
+      <div className="relative h-full w-[80%] max-w-[50rem]">
         <input
           type="text"
           id="search"

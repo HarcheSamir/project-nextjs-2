@@ -336,7 +336,7 @@ export default function Registration() {
 
        <div className='flex pr-4 gap-4 flex-row justify-end bottom-5 bg-white flex-none'>
      <Link href='/Admin' ><button className='bg-white  hover:scale-110 hover:bg-blue-700 hover:text-white hover:border-blue-700 rounded  border-2 border-red-500 text-red-500 font-bold py-2 px-4 text-xs '>Cancel</button></Link> 
-      <button form='my-form' type='submit' className='rounded hover:scale-110  bg-red-500 text-white font-bold py-2 px-4 text-xs'>
+      <button disabled={isLoadingButton}  form='my-form' type='submit' className='rounded hover:scale-110  bg-red-500 text-white font-bold py-2 px-4 text-xs'>
       {!isLoadingButton && 'Register'}
 {isLoadingButton ? (
         <svg
