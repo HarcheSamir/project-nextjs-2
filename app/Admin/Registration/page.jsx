@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import axios from 'axios';
 import Registration from '@/components/Registration';
-export default function page() {
+export default function Page() {
     const router = useRouter();
     const [isLoading, setLoading] = useState(true)
 

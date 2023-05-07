@@ -60,7 +60,7 @@ export default function Registration() {
   const router = useRouter();
   const [isLoadingButton, setIsLoadingButton] = useState(false);
   const [error, setError] = useState('');
-  const [done ,setDone] = useState(false)
+  const [done ,setDone] = useState(false) ;
   const phoneRegExp = /^(?:\+213|0)(?:5|6|7)[0-9]{8}$/;
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -103,16 +103,22 @@ export default function Registration() {
 
 
   return (
-    <div className='pb-5 justify-center pl-5 pt-4  w-full relative  flex flex-col  '>
-     {done && <div className='fixed h-screen top-0 left-0 z-20 w-screen bg-blue-900/30'></div>}
-     {done && <div className='w-[30%] shadow overflow-hidden rounded-lg aspect-[5/4] bg-white flex flex-col items-center fixed top-1/5 z-20 left-1/3'>
+    <div className='pb-5 justify-center pl-5 pt-4  w-full flex flex-col  '>
+    {done &&
+<div className="w-screen absolute  top-0 left-0 z-20  bg-blue-900/30  h-screen">
+    <div className="h-screen  relative w-screen ">
+    <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>
         <div className='h-3/5 flex items-center justify-center bg-green-500 w-full top-0'>
           <AiOutlineCheckCircle className=' h-[50%] text-white  w-[50%]' />
         </div>
         <p className='font-bold text-2xl mt-2 font-mono  text-neutral-900'>Great!</p>
-        <p className='text-sm font-bold text-zinc-700'>The Employee Was Registered Successfully</p>
-        <Link href='/Admin'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
-      </div> }
+        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Your request has been successfully submitted. We will review it and process it as soon as possible. </p>
+        <Link href='/Employee'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
+      </div>
+    </div>
+
+</div>
+ }
       <div className='w-full max-w-[60rem]'>
       <p className='text-blue-700 font-bold flex-none text-2xl font-mono m-3'>Register An Employee :</p>
      <div className=' mt-5  grow flex justify-center items-center '>

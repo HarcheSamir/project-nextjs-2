@@ -4,16 +4,18 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {RiImageAddFill} from 'react-icons/ri'
 import Image from "next/image";
-
+import { AiOutlineCheckCircle,  AiOutlineCheck } from "react-icons/ai";
 import axios from "axios";
 import { FcRemoveImage} from "react-icons/fc";
-
+import Link from "next/link";
 
 
 export default function Page() {
     const [items, setItems] = useState([]);
     const [selectedItem, setSelectedItem] = useState('');
     const [loading, setLoading] = useState(true);
+    const [done ,setDone] = useState(false) ;
+
 const [isLoadingButton, setLoadingButton] = useState(false) ;
     useEffect(() => {
         const fetchItems = async () => {
@@ -52,6 +54,29 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
     <div className=" flex justify-center items-center  sm:py-16   flex-col  ">
 
+
+
+{done &&
+<div className="w-screen absolute top-0 left-0 z-20  bg-blue-900/30  h-screen">
+    <div className="h-screen  relative w-screen ">
+    <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>
+        <div className='h-3/5 flex items-center justify-center bg-green-500 w-full top-0'>
+          <AiOutlineCheckCircle className=' h-[50%] text-white  w-[50%]' />
+        </div>
+        <p className='font-bold text-2xl mt-2 font-mono  text-neutral-900'>Great!</p>
+        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Your request has been successfully submitted. We will review it and process it as soon as possible. </p>
+        <Link href='/Employee'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
+      </div>
+    </div>
+
+</div>
+ }
+
+
+
+
+
+
         <div className="border-[3px] w-screen  max-w-[50rem] pb-20 sm:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
      <p className="sm:text-6xl text-4xl font-mono font-bold mb-8 text-zinc-700 mt-8 sm:ml-5">Add Request :</p>
 
@@ -86,6 +111,8 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
             setSubmitting(false);
             setLoading(false)
             setLoadingButton(false)
+            setDone(true)
+
           })
           .catch((error) => {
             console.log(error);

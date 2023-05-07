@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import axios from 'axios';
 
-export default function page() {
+export default function Page() {
 
  
 

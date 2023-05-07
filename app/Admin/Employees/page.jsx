@@ -20,7 +20,7 @@ const fetchAccounts = async (queryParams) => {
 };
 
 
-export default function page() {
+export default function Page() {
   const [query, setQuery] = useState('');
   useEffect(() => {
     async function fetchAccounts() {

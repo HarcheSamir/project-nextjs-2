@@ -3,7 +3,7 @@ import Annances from '@/components/annances';
 import Hero from '@/components/hero2';
 import Programme from '@/components/programmes';
 import Contact from '@/components/Contacts';
-export default function page() {
+export default function Page() {
   return (
     <div>
        <Hero

@@ -16,7 +16,7 @@ const items = [
 
 
 
-export default function page() {
+export default function Page() {
   return (
     <div className='w-screen mb-[50rem] items-center flex-col flex'>
 

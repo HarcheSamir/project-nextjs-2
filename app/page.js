@@ -5,7 +5,7 @@ import Slider from '@/components/Slider'
 import Programs from '@/components/Programs'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/newNavbar'
-export default function Home() {
+export default function Page() {
   return (
     <main className="flex flex-col items-center ">
       <Navbar/>
