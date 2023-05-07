@@ -28,7 +28,7 @@ export default function Admin({ children }) {
         })
          .catch((error) => {console.error(error?.response?.data) ; router.push('/')
          });
-    }, []);
+    }, [router]);
 
 
 

@@ -54,7 +54,7 @@ export default  function Page() {
      })
      .catch((error) => {console.error(error?.response?.data)  ;setLoading(false)
      });
-}, []);
+}, [router]);
 
 
 

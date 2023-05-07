@@ -3,7 +3,7 @@
 import { useState ,useEffect } from "react"
 import {AiFillEdit ,AiFillDelete} from 'react-icons/ai'
 import { FiSearch } from 'react-icons/fi';
-
+import Image from "next/image";
 import Link from "next/link"
 import axios from "axios"
 var queryParams = {
@@ -95,7 +95,7 @@ export default function Page() {
       {accounts .filter((account) => account.email !== 'admin@com').map((account, index) => (
          <div key={index} className="w-full   rounded-lg hover:bg-blue-200 hover:scale-[101%] group/item mb-1 px-4 mx-4 relative  mt-1 items-center flex ">
               <p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">{index +1 }</p>
-              <div className="sm:w-[30%] w-[50%] flex items-center cursor-default text-sm font-bold relative h-16 text-zinc-700 ml-2"><img alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" className="h-[70%] flex-none  object-cover rounded-md aspect-square  mr-2 " src={account.profileImageUrl} /> <div className="flex w-full grow  h-full justify-center flex-col "> <p className="text-ellipsis w-[70%] overflow-hidden">{account.name}</p> <p className="text-xs text-zinc-400  text-ellipsis w-[70%] overflow-hidden ">{account.email}</p></div> </div>
+              <div className="sm:w-[30%] w-[50%] flex items-center cursor-default text-sm font-bold relative h-16 text-zinc-700 ml-2"><Image alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" className="h-[70%] flex-none  object-cover rounded-md aspect-square  mr-2 " src={account.profileImageUrl} /> <div className="flex w-full grow  h-full justify-center flex-col "> <p className="text-ellipsis w-[70%] overflow-hidden">{account.name}</p> <p className="text-xs text-zinc-400  text-ellipsis w-[70%] overflow-hidden ">{account.email}</p></div> </div>
               <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">{account.job}</p>
               <p className="sm:w-[30%] hidden sm:block cursor-default text-sm font-bold  text-zinc-700 ml-2">{account.phone}</p>
             <div className="absolute  invisible sm:group-hover/item:visible flex justify-evenly top-1/2 -translate-y-1/2 right-[20%] h-[50%] aspect-[2/1]">
