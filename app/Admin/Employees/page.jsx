@@ -99,7 +99,7 @@ export default function Page() {
               <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">{account.job}</p>
               <p className="sm:w-[30%] hidden sm:block cursor-default text-sm font-bold  text-zinc-700 ml-2">{account.phone}</p>
             <div className="absolute  invisible sm:group-hover/item:visible flex justify-evenly top-1/2 -translate-y-1/2 right-[20%] h-[50%] aspect-[2/1]">
-              <AiFillEdit className="w-6 hover:scale-150 cursor-pointer h-6 text-green-500"/> 
+            <Link href={`/Admin/Employee?id=${encodeURIComponent(account.email)}`}><AiFillEdit className="w-6 hover:scale-150 cursor-pointer h-6 text-green-500"/> </Link>
               <AiFillDelete className="w-6 h-6 hover:scale-150 cursor-pointer text-red-500"/>
             </div>
             </div>

@@ -1,5 +1,4 @@
 'use client'
-import React from 'react'
 import Image from 'next/image'
 import axios from 'axios';
 import {AiOutlineCheckCircle ,AiFillCheckCircle, AiOutlineCheck} from 'react-icons/ai'
@@ -8,6 +7,20 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
+
+function decimalToBinary(decimal) {
+  // Convert the decimal number to its binary representation
+  let binary = decimal.toString(2);
+  
+  // Pad the binary string with zeros to a length of 4
+  while (binary.length < 4) {
+    binary = '0' + binary;
+  }
+  
+  return binary;
+}
+
+
 const roles = {
   employee: 0b0001,
   responsable: 0b0010,
@@ -43,6 +56,7 @@ const CheckboxGroup = ({ label, name, options, values, setFieldValue }) => {
                   ? values[name] | option.value
                   : values[name] & ~option.value;
                 setFieldValue(name, newValue);
+              console.log(decimalToBinary(newValue))
               }}
               className="mr-2"
             />
@@ -54,6 +68,8 @@ const CheckboxGroup = ({ label, name, options, values, setFieldValue }) => {
     </div>
   );
 };
+
+
 
 export default function Registration() {
 
@@ -81,17 +97,7 @@ export default function Registration() {
     bitmask: 0b0000,
   });
 
-  const handleSubmit = (values) => {
-    let binaryValue = "";
-    Object.keys(roles).forEach((role) => {
-      if ((values.bitmask & roles[role]) !== 0) {
-        binaryValue += "1";
-      } else {
-        binaryValue += "0";
-      }
-    });
-    setBitmaskValue(binaryValue);
-  };
+  
 
 
 
@@ -112,7 +118,7 @@ export default function Registration() {
           <AiOutlineCheckCircle className=' h-[50%] text-white  w-[50%]' />
         </div>
         <p className='font-bold text-2xl mt-2 font-mono  text-neutral-900'>Great!</p>
-        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Your request has been successfully submitted. We will review it and process it as soon as possible. </p>
+        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Employee account registration has been successfully completed. The new employee has been added to the system.</p>
         <Link href='/Employee'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
       </div>
     </div>
@@ -151,12 +157,12 @@ export default function Registration() {
         binaryValue += "0";
       }
     });
-   console.log(binaryValue)
+    let theRoles = binaryValue.split('').reverse().join('') ;
     
     axios.post('https://server-social-benefits.vercel.app/signup', {
     email: values.email,
     password: values.password ,
-    role : binaryValue ,
+    role : theRoles ,
     job:values.job,
     phone : values.phone,
     maritalStatus : values.maritalStatus ,
@@ -314,10 +320,10 @@ export default function Registration() {
               label="Roles"
               name="bitmask"
               options={[
-                { label: 'Employee', value: roles.comptable },
-                { label: 'Responsable', value: roles.funder },
-                { label: 'Funder', value: roles.responsable },
-                { label: 'Comptable', value: roles.employee },
+                { label: 'Employee', value:roles.employee  },
+                { label: 'Responsable', value: roles.responsable },
+                { label: 'Funder', value: roles.funder },
+                { label: 'Comptable', value:roles.comptable },
               ]}
               values={values}
               setFieldValue={setFieldValue}
