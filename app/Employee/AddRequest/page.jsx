@@ -21,7 +21,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         const fetchItems = async () => {
             setLoading(true)
             try{
-          const response = await axios.get('http://server-social-benefits.vercel.app/socialBenefits');
+          const response = await axios.get('https://server-social-benefits.vercel.app/socialBenefits');
           setItems(response.data);
         }catch (error) {
             console.error(error);
