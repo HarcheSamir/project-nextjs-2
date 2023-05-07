@@ -101,7 +101,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         formData.append("about", values.about);
         formData.append("description",values.description);
         axios
-          .post("http://server-social-benefits.vercel.app/uploadRequest", formData, {
+          .post("https://server-social-benefits.vercel.app/uploadRequest", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
             },
