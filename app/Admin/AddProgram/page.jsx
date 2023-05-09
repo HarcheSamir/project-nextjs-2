@@ -54,7 +54,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-{!done &&
+{done &&
 <div className="w-screen absolute top-0 left-0 z-50  bg-blue-900/30  h-screen">
     <div className="h-screen  relative w-screen ">
     <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>

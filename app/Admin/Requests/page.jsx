@@ -71,7 +71,7 @@ if(Loadingfetch) return (<p>Loading...</p>)
 <p className="text-6xl font-mono font-bold text-zinc-700 mt-16 ml-5">Demandes :</p>
 
 <div className="sticky bg-white top-0 z-10">
-<div className="flex mt-5 bg-white   items-start ml-6 w-full aspect-[3/1] sm:aspect-[9/1]">
+<div className="flex mt-5 bg-white   items-start ml-6 w-full aspect-[3/1] md:aspect-[5/1] lg:aspect-[9/1]">
 <div className="h-[70%]   mr-2  flex-none relative aspect-square"><Image alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" fill className="rounded-lg ring-2 ring-offset-[3px] ring-zinc-500" src={account?.profileImageUrl || 'https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'} /> </div>
 <div className="flex w-full grow mt-2  h-full  flex-col "> 
 <p className="text-ellipsis w-[70%] font-bold text-3xl font-mono text-zinc-700 overflow-hidden">{account?.name}</p> 
@@ -83,10 +83,10 @@ if(Loadingfetch) return (<p>Loading...</p>)
 
 
       <div className="flex bg-white/95 z-10 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px]   border-p-8 border-zinc-700 w-full ">
-<p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">#</p>
-<p className="sm:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-zinc-700  ml-2">Objet</p>
-<p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">Status</p>
-<p className="sm:w-[30%] hidden sm:block  cursor-default text-sm font-bold  text-zinc-700 ml-2">Demandé par</p>
+<p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">#</p>
+<p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-zinc-700  ml-2">Objet</p>
+<p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">Status</p>
+<p className="md:w-[30%] hidden md:block  cursor-default text-sm font-bold  text-zinc-700 ml-2">Demandé par</p>
       </div>
 </div>
 
@@ -104,10 +104,10 @@ if(Loadingfetch) return (<p>Loading...</p>)
           )}
           {!loading && records.map((request, index) => (
             <div key={index} className="w-full h-16 rounded-lg hover:bg-blue-200 hover:scale-[101%] group/item mb-1 px-4 mx-4 relative mt-1 items-center flex ">
-              <p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold text-zinc-700 "> {index + 1 + (pagination.currentPage - 1) * 10}</p>
-              <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.about}</p>
-              <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.status}</p>
-              <p className="sm:w-[30%] hidden sm:block cursor-default text-sm font-bold text-zinc-700 ml-2">{request.requestedBy}</p>
+              <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-zinc-700 "> {index + 1 + (pagination.currentPage - 1) * 10}</p>
+              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.about}</p>
+              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.status}</p>
+              <p className="md:w-[30%] hidden md:block cursor-default text-sm font-bold text-zinc-700 ml-2">{request.requestedBy}</p>
             </div>
           ))}
       </div>
