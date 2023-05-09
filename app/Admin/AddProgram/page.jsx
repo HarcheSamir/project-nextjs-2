@@ -50,7 +50,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-    <div className=" flex justify-center items-center  sm:py-16   flex-col  ">
+    <div className=" flex justify-center px-8 items-center  sm:py-16   flex-col  ">
 
 
 
@@ -75,10 +75,10 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-        <div className="border-[3px] w-screen  max-w-[50rem] pb-20 sm:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
+        <div className="border-[3px] w-full  max-w-[50rem] pb-20 sm:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
         <p 
       className=" text-center text-4xl font-bold text-[#0B59A1] mt-8 "
-     >Ajouter au annonces</p>
+     >New Programs</p>
    <Formik 
     initialValues={{
         images: [],description :  '' , coverage:'', needed_proofs:''
