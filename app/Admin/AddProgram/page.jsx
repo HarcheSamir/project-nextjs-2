@@ -81,7 +81,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
      >New Programs</p>
    <Formik 
     initialValues={{
-        images: [],description :  '' , coverage:'', needed_proofs:''
+        images: [],description :  '' , coverage:'', needed_proofs:'' ,title:''
       }}
       
       validationSchema={Yup.object({
