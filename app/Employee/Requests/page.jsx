@@ -72,10 +72,10 @@ export default function Page() {
 
 
       <div className="flex bg-white/95 z-10 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px]   border-p-8 border-zinc-700 w-full sticky top-0">
-<p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">#</p>
-<p className="sm:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-zinc-700  ml-2">Objet</p>
-<p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">Status</p>
-<p className="sm:w-[30%] hidden sm:block  cursor-default text-sm font-bold  text-zinc-700 ml-2">Demandé par</p>
+<p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">#</p>
+<p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-zinc-700  ml-2">Objet</p>
+<p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">Status</p>
+<p className="md:w-[30%] hidden md:block  cursor-default text-sm font-bold  text-zinc-700 ml-2">Demandé par</p>
       </div>
 
 
@@ -91,10 +91,10 @@ export default function Page() {
           )}
           {!loading && records.map((request, index) => (
             <div key={index} className="w-full h-16 rounded-lg hover:bg-blue-200 hover:scale-[101%] group/item mb-1 px-4 mx-4 relative mt-1 items-center flex ">
-              <p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold text-zinc-700 "> {index + 1 + (pagination.currentPage - 1) * 10}</p>
-              <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.about}</p>
-              <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.status}</p>
-              <p className="sm:w-[30%] hidden sm:block cursor-default text-sm font-bold text-zinc-700 ml-2">{request.requestedBy}</p>
+              <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-zinc-700 "> {index + 1 + (pagination.currentPage - 1) * 10}</p>
+              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.about}</p>
+              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.status}</p>
+              <p className="md:w-[30%] hidden md:block cursor-default text-sm font-bold text-zinc-700 ml-2">{request.requestedBy}</p>
             </div>
           ))}
       </div>

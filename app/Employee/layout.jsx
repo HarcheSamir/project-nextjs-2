@@ -62,9 +62,9 @@ useEffect(() => {
 
   return (
    
-    <section className='flex flex-col    w-screen sm:flex-row'>
+    <section className='flex flex-col    w-full sm:flex-row'>
 
-    <div className='  sm:flex-none w-screen z-20 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-hidden flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
+    <div className='  sm:flex-none z-20 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-hidden flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
     <div className="flex items-center flex-col w-full">
 
 
@@ -204,7 +204,7 @@ useEffect(() => {
 
 
 
-    <section className='sm:grow w-screen sm:w-min  sm:min-w-[60rem] h-screen overflow-hidden'>
+    <section className='sm:grow  sm:w-min   h-screen overflow-hidden'>
     <div className='h-full  w-full overflow-y-auto'>
      {children}
     </div>
