@@ -2,9 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Modal from 'react-modal';
-
+import { IoIosAddCircle } from 'react-icons/io';
+import { Link } from 'react-scroll';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter()
   const [announcements, setAnnouncements] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0); // Add activeIndex state variable
@@ -29,11 +32,10 @@ export default function Page() {
   }, []);
 
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col w-full  items-center">
+       <IoIosAddCircle onClick={()=>{router.push('/Admin/AddAnnouncement')} }   className=' cursor-pointer absolute bottom-[10%] right-[5%] hover:scale-125 z-50  h-20 w-20 text-green-600' />
       <p className="text-5xl font-mono mt-20 border-b-2 border-red-600 text-blue-900 mb-20">Nos Annonces</p>
-      <div className="absolute top-0 right-0 mt-4">
-      <button className="bg-[#DC143C] mb-2 sm:mb-0 hover:scale-110 hover:bg-blue-500 ml-4 text-sm font-bold text-white rounded-lg py-4 px-20 mt-16 mr-4">Ajouter annonce</button>
-      </div>
+      
       <div className={`w-full px-8 sm:px-0 gap-8 max-w-[60rem] grid grid-cols-1 lg:grid-cols-2`}>
         {announcements.map((item, index) => (
           <div
@@ -76,12 +78,12 @@ export default function Page() {
 >
   {activeIndex !== null && announcements.length > activeIndex && (
     <div>
-      <div className="flex justify-center items-center">
+      <div className="flex shadow-md justify-center items-center">
         <div className="w-[470px] h-[230px]  mt-[10px] relative">
           <Image
             src={announcements[activeIndex].cover_url}
             className="object-cover rounded-md"
-            layout="fill"
+            fill
           />
         </div>
       </div>
