@@ -4,6 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {RiImageAddFill} from 'react-icons/ri'
 import Image from "next/image";
+import { IoMdCloseCircle } from "react-icons/io";
+
 import { AiOutlineCheckCircle,  AiOutlineCheck } from "react-icons/ai";
 import axios from "axios";
 import { FcRemoveImage} from "react-icons/fc";
@@ -27,7 +29,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-    <div className=" flex justify-center items-center px-8  sm:py-16   flex-col  ">
+    <div className=" flex justify-center items-center px-8  md:py-16   flex-col  ">
 
 
 
@@ -52,8 +54,8 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-        <div className="border-[3px] w-full   max-w-[50rem] pb-20 sm:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
-     <p className="md:text-5xl w-full text-center text-4xl font-mono font-bold mb-8 text-zinc-700 mt-8 sm:ml-5">New Announcement </p>
+        <div className="border-[3px] w-full   max-w-[50rem] pb-20 md:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
+     <p className="md:text-5xl w-full text-center text-4xl font-mono font-bold mb-8 text-zinc-700 mt-8 md:ml-5">New Announcement </p>
 
    <Formik 
     initialValues={{
@@ -69,7 +71,9 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         setLoadingButton(true)
         const formData = new FormData();
        
-        formData.append("pic", values.images[0]);
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("pic", values.images[i]);
+        }
         formData.append('title', values.title);
         formData.append('description', values.description);
         axios
@@ -88,7 +92,6 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
           .catch((error) => {
             console.log(error);
             setSubmitting(false);
-            setLoading(false)
             setLoadingButton(false)
           });
       }}
@@ -180,10 +183,10 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 <div className="w-full mt-12 col-span-2 flex flex-col">
     <p className="text-zinc-700 font-bold mb-4 text-xl ml-4">Select Needed Documents :</p>
-<div className="grid gap-2 ml-6 w-fit grid-cols-2 sm:grid-cols-3">
+<div className="grid gap-2 ml-6 w-fit grid-cols-2 md:grid-cols-3">
 
 {values.images && Array.from(values.images).map((image ,index) => (
-<div key={index} className="w-20 sm:w-40 shadow ring-zinc-400 ring-2 rounded overflow-hidden sm:h-40 relative h-20">
+<div key={index} className="w-20 md:w-40 shadow ring-zinc-400 ring-2 rounded overflow-hidden md:h-40 relative h-20">
 <Image key={image.name} fill src={URL.createObjectURL(image)} alt="selected" className="rounded object-cover" />
 <div className="absolute -top-0 -right-0">
         <button type="button" onClick={() => {
@@ -191,14 +194,14 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
           newImages.splice(index, 1);
           setFieldValue("images", newImages);
         }} >
-          <FcRemoveImage className="sm:w-12 w-8 h-8 sm:h-12 text-red-500" />
+          <IoMdCloseCircle className="md:w-12 w-8 h-8 md:h-12 text-red-500" />
         </button>
       </div>
 </div>
 ))}
 
-<div className=" aspect-square w-20 sm:w-40  rounded border-[3px]  border-zinc-400  relative">
-<RiImageAddFill className="sm:h-16  h-10 w-10 text-zinc-400 sm:w-16 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
+<div className=" aspect-square w-20 md:w-40  rounded border-[3px]  border-zinc-400  relative">
+<RiImageAddFill className="md:h-16  h-10 w-10 text-zinc-400 md:w-16 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
 <input
 id="images"
 name="images"
@@ -209,7 +212,7 @@ const files = event.currentTarget.files;
 const fileArray = Array.from(files);
 setFieldValue("images", fileArray);
 }}
-className="opacity-0 cursor-pointer w-20 h-20 sm:w-40 sm:h-40 bg-red-900"
+className="opacity-0 cursor-pointer w-20 h-20 md:w-40 md:h-40 bg-red-900"
 />
 
 
@@ -224,7 +227,7 @@ className="opacity-0 cursor-pointer w-20 h-20 sm:w-40 sm:h-40 bg-red-900"
       )}
     </Formik>
 
-    <button disabled={isLoadingButton}  form="my-form" type="submit"  className="bg-red-500 absolute sm:bottom-5 sm:right-16 sm:left-auto sm:translate-x-0 left-1/2 -translate-x-1/2 sm:mt-5  text-white px-8 py-4 rounded">
+    <button disabled={isLoadingButton}  form="my-form" type="submit"  className="bg-red-500 absolute md:bottom-5 md:right-16 md:left-auto md:translate-x-0 left-1/2 -translate-x-1/2 md:mt-5  text-white px-8 py-4 rounded">
   
   {isLoadingButton ? (
         <svg
