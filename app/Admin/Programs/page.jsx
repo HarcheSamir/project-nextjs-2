@@ -1,9 +1,12 @@
+'use client'
 import Programs from '@/components/Programs';
-
+import { IoIosAddCircle } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
 export default function Page() {
+  const router = useRouter()
   return (
-    <div className="relative">
-      <button className="absolute top-0 right-0 bg-[#DC143C] sm:mb-0 hover:scale-110 hover:bg-blue-500 text-sm font-bold text-white rounded-lg py-4 px-16 mt-20 mr-4">Ajouter au programme</button>
+    <div className="w-full">
+       <IoIosAddCircle onClick={()=>{router.push('/Admin/AddProgram')} }   className=' cursor-pointer absolute bottom-[10%] right-[5%] hover:scale-125 z-50  h-20 w-20 text-green-600' />
       <main className="flex flex-col items-center">
         <Programs />
       </main>
