@@ -3,19 +3,43 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
+import { useSearchParams } from 'next/navigation';
+import Image from "next/image";
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const [query, setQuery] = useState("");
   const [records, setRecords] = useState([]);
   const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(false);
 
+
+  const [account, setAccount] = useState(null);
+  const[Loadingfetch,setLoadingfetch] = useState(true) ;
+
+  useEffect(() => {
+      axios.get('https://server-social-benefits.vercel.app/accounts', {
+        params: {
+          email: id
+        }
+      })
+      .then((response) => {
+        setAccount(response.data[0]);
+        console.log(response.data[0])      ; 
+        setLoadingfetch(false)
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    }, []);
+
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const { data } = await axios.get("https://server-social-benefits.vercel.app/searchRequests", {
+      const { data } = await axios.get("https://server-social-benefits.vercel.app/requests", {
         params: {
-          for: query,
+          requestedBy: id,
           page: pagination.currentPage || 1,
           limit: 10,
         },
@@ -39,44 +63,33 @@ export default function Page() {
     }));
   }
 
+if(Loadingfetch) return (<p>Loading...</p>)
   return (
     <div className="w-[95%] flex flex-col ">
 
 
 <p className="text-6xl font-mono font-bold text-zinc-700 mt-16 ml-5">Demandes :</p>
-     <div className="mb-4 mt-4 justify-between flex items-center w-full ">
+
+<div className="sticky bg-white top-0 z-10">
+<div className="flex mt-5 bg-white   items-start ml-6 w-full aspect-[3/1] sm:aspect-[9/1]">
+<div className="h-[70%]   mr-2  flex-none relative aspect-square"><Image alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" fill className="rounded-lg ring-2 ring-offset-[3px] ring-zinc-500" src={account?.profileImageUrl || 'https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'} /> </div>
+<div className="flex w-full grow mt-2  h-full  flex-col "> 
+<p className="text-ellipsis w-[70%] font-bold text-3xl font-mono text-zinc-700 overflow-hidden">{account?.name}</p> 
+<p className="text-xs text-zinc-400  text-ellipsis font-bold ml-2 w-[70%] overflow-hidden ">{account?.email}</p>
+</div> 
+</div>
+    
 
 
 
-
-      <div className="relative h-full w-[80%] max-w-[50rem]">
-        <input
-          type="text"
-          id="search"
-          name="search"
-          className="w-full  border-gray-300 rounded-md pl-10 pr-4 py-2 focus:border-blue-500 focus:border-[1px] focus:outline-none "
-          placeholder="Search requests"
-          value={query}
-          onChange={handleInputChange}
-        />
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <FiSearch className="h-5 w-5 text-gray-400" />
-        </div>
-      </div>
-
-
-
-
-      </div>
-
-
-
-      <div className="flex bg-white/95 z-10 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px]   border-p-8 border-zinc-700 w-full sticky top-0">
+      <div className="flex bg-white/95 z-10 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px]   border-p-8 border-zinc-700 w-full ">
 <p className="sm:w-[3%] w-[5%] cursor-default text-sm font-bold  text-zinc-700 ">#</p>
 <p className="sm:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-zinc-700  ml-2">Objet</p>
 <p className="sm:w-[30%] w-[50%] cursor-default text-sm font-bold  text-zinc-700  ml-2">Status</p>
 <p className="sm:w-[30%] hidden sm:block  cursor-default text-sm font-bold  text-zinc-700 ml-2">Demandé par</p>
       </div>
+</div>
+
 
 
 
