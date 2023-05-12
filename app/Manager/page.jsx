@@ -44,7 +44,7 @@ export default function Page() {
   return (
     <div className="flex flex-col w-full items-center">
 
-<div className=" scale-[90%]"><Slider/></div>
+
    
     <div className="w-[95%] flex flex-col ">
         
