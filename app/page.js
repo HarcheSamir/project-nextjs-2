@@ -10,6 +10,7 @@ export default function Page() {
     <main className="flex flex-col items-center ">
       <Navbar/>
      <Hero />
+     <p className="text-5xl  font-mono mt-20  border-b-2 border-red-600  text-blue-900">Nos Annonces</p>
      <Slider />
      <Programs />
      <Footer />

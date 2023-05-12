@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
 import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd } from 'react-icons/ai';
-import {BsFillPeopleFill ,BsFillCollectionFill ,BsStars, BsStar ,BsFillPersonFill } from 'react-icons/bs'
+import {BsFillCollectionFill ,BsStars, BsStar , BsFillPeopleFill} from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
+import { MdCollectionsBookmark } from 'react-icons/md';
 
 
 export default function Admin({ children }) {
@@ -17,7 +18,10 @@ export default function Admin({ children }) {
 
     const router = useRouter();
   const [isLoading, setLoading] = useState(true)
+  const [account, setAccount] = useState(null);
+  const[profileImageUrl,setProfileImageUrl]=useState('https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg')
 
+  
   ////////protecting Route
   useEffect(() => {
     setLoading(true)
@@ -27,53 +31,18 @@ export default function Admin({ children }) {
      .then((response) => { 
       if(response.data.email==="admin@com") {router.push('/Admin/Employees') }
        else {
-      
-        
-        const role = response.data.account.role;
-         console.log(role)
-      switch (role) {
-        case '0011':
-          router.push('/Manager');
-          break;
-        case '0101':
-          router.push('/Funder');
-          break;
-        case '1001':
-          router.push('/Accountant');
-          break;
-        default:
-          console.log(response?.data?.email);
-          setLoading(false);
-          break;
-      } } 
+        if(response.data.account.role!='0011') router.push('/Employee')
+        setAccount(response.data.account)
+        console.log(response.data.account)
+        setLoading(false)
+     } 
      })
-     .catch((error) => {console.error(error?.response?.data) ; router.push('/')
+     .catch((error) => {console.error(error?.response?.data) ; router.push('/Login')
      });
 }, [router]);
 
 
-const [account, setAccount] = useState(null);
-const[profileImageUrl,setProfileImageUrl]=useState('https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg')
 
-useEffect(() => {
-  axios.get('https://server-social-benefits.vercel.app/accounts', {
-    params: {
-      email: localStorage.getItem('id')
-    }
-  })
-  .then((response) => {
-    setAccount(response.data[0]);
-    setProfileImageUrl(response.data[0].profileImageUrl)
-
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}, []);
-
-
-/////loading state
- if (isLoading) return <p>Loading...</p>
 
 
 
@@ -138,16 +107,19 @@ useEffect(() => {
 
 
     <div className='hidden  relative overflow-hidden ring-2 ring-zinc-500 sm:block mt-8 rounded-full   hover:scale-110 aspect-square  w-[40%]'>
-    <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={profileImageUrl}/>
+    <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={account.profileImageUrl}/>
     </div> 
     <p className='hidden sm:block font-bold mt-2 text-xl font-mono text-neutral-100'>{account?.name}</p>
     <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account?.job}</p>
 
  
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">
-  <Link href='/Employee/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
+  <Link href='/Manager/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><MdCollectionsBookmark className='h-4 w-4'/> Requests</div></Link>
+  <Link href='/Manager/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
+  <Link href='/Manager/Employees'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Employees</div></Link>
 
-      <Link href='/Employee'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPersonFill className='h-3 w-3'/>Profile</div></Link>
+      <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillCollectionFill className='h-3 w-3'/> Programs</div></Link>
+      <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsStars className='h-3 w-3'/> Ads</div></Link>
 
     </div>
 
@@ -178,8 +150,11 @@ useEffect(() => {
 
 
     <div className={ nav ? `flex absolute top-14 sm:hidden animate duration-300   left-0 right-0 z-10 flex-col w-full bg-[#35465e]` : '-translate-y-[200%] flex absolute left-0 right-0 z-10 flex-col w-full bg-[#35465e] animate duration-300'}>
+      <Link onClick={()=>{setNav(!nav)}} href='/Employee/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Requests</div></Link>
       <Link onClick={()=>{setNav(!nav)}} href='/Employee/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
-      <Link onClick={()=>{setNav(!nav)}} href='/Employee'><div className='py-4 hover:bg-[#4b6485] px-2 z-50 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPersonFill className='h-3 w-3'/>Profile</div></Link>
+
+      <Link onClick={()=>{setNav(!nav)}} href='/Employee'><div className='py-4 hover:bg-[#4b6485] z-50  px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillCollectionFill className='h-3 w-3'/> Programs</div></Link>
+      <Link onClick={()=>{setNav(!nav)}} href='/Employee'><div className='py-4 hover:bg-[#4b6485] px-2 z-50 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsStars className='h-3 w-3'/> Ads</div></Link>
 
     </div>
 

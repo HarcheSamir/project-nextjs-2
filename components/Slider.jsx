@@ -38,8 +38,7 @@ const Slider = () => {
   };
 
   return (
-    <div id="ads" className="flex flex-col w-screen items-center">
-        <p className="text-5xl  font-mono mt-20  border-b-2 border-red-600  text-blue-900">Nos Annonces</p>
+    <div id="ads" className="flex flex-col  w-full items-center">
         <div className="relative mt-10 w-screen max-w-[65rem] aspect-[7/4] sm:aspect-[3/1]">
 
 <IoIosArrowDropleft
