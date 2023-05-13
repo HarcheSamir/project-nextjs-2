@@ -148,7 +148,7 @@ export default function Page() {
         
      
 
-<p className="text-6xl font-mono font-bold text-zinc-700 mt-16 ml-5">Demandes :</p>
+<p className="text-4xl font-mono font-bold text-[#0B59A1] mt-16 ml-5">Requests To Review :</p>
      <div className="mb-4 mt-4 justify-between flex items-center w-full ">
 
 
