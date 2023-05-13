@@ -50,6 +50,7 @@ export default function Page() {
         },
       });
       setRecords(data.records);
+      (data.records[0].manager_review=='approved' ) && setApproved(true) ;
       setLoading(false);
 
     }
@@ -207,7 +208,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
        <Formik
   initialValues={{
-    state: '' ,motif:'' , amount :null  ,
+    state: records[0].manager_review ,motif:records[0].manager_motif , amount : records[0].amount  ,
   }}
   validationSchema={approved ? Yup.object({
     state: Yup.string().required('Please select a state') ,
@@ -217,53 +218,34 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
     state: Yup.string().required('Please select a state') ,
     motif : Yup.string().required(), 
   }) }
-  onSubmit={(values, { setSubmitting }) => {
-    setLoadingButton(true)
-  
-    axios
-      .post("https://server-social-benefits.vercel.app/reviewRequest", {
-      id:id , review : values.state , email:localStorage.getItem('id') ,amount:values.amount , motif : values.motif
-      })
-      .then((response) => {
-        console.log(response.data);
-        setLoadingButton(false)
-        setDone(true)
-
-      })
-      .catch((error) => {
-        console.log(error);
-        setSubmitting(false);
-        setLoading(false)
-        setLoadingButton(false)
-      });
-  }}
+  onSubmit={()=>{}}
 >
   {({ values , handleBlur ,handleChange}) => (
     <Form id='my-form' className='flex flex-col'>
              <div className='cont4'>
 
       <div className='cont41'>
-        <Field type='radio' onClick={()=>{setApproved(true) , setFilled(true)}} name='state' value="approved" />
-        Accepter demande
+        <Field type='radio' disabled onClick={()=>{setApproved(true) , setFilled(true)}} name='state' value="approved" />
+        Accepted {records[0].manager_review=='approved' && 'At '}  {records[0].manager_review=='approved' && new Date(records[0].createdAt).toLocaleDateString('en-US', {year: 'numeric',month: 'long',day: 'numeric'})}
       </div>
       <div className='cont42'>
-        <Field type='radio' onClick={()=>{setApproved(false), setFilled(true)}} name='state' value="rejected" />
-        Refuser demande
+        <Field type='radio' disabled onClick={()=>{setApproved(false), setFilled(true)}} name='state' value="rejected" />
+        Refused  {records[0].manager_review=='rejected' && 'At '}  {records[0].manager_review=='rejected' && new Date(records[0].createdAt).toLocaleDateString('en-US', {year: 'numeric',month: 'long',day: 'numeric'})}
       </div>
       </div>
       <ErrorMessage name="state" component="span" className="error w-full text-center text-red-500 text-sm font-bold" />
      { approved && <div>
       <h2 className='pl-8'>Request Amount</h2>
       <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
- <Field component="textarea"     style={{ height: textAreaHeight }} onChange={handleChange}   value={values.amount}   name="amount"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
+ <Field component="textarea" disabled     onChange={handleChange}   value={values.amount}   name="amount"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
       <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">123...</label>
       <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="amount" component="span"/>
   </div></div>
   }
-     {(approved && filled)&&<h2 className='pl-8'>More Details:</h2> }
-     {(!approved && filled)&& <h2 className='pl-8'>Rejection purpose:</h2>}
-   { filled && <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
- <Field component="textarea"     style={{ height: textAreaHeight }} onChange={(event) => {handleChange(event);handleTextAreaChange(event); }}   value={values.description}   name="motif"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
+     {(approved )&&<h2 className='pl-8'>More Details:</h2> }
+     {(!approved )&& <h2 className='pl-8'>Rejection purpose:</h2>}
+   {  <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
+ <Field component="textarea" disabled     style={{ height: textAreaHeight }}   value={values.motif}   name="motif"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
       <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Aa...</label>
       <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="motif" component="span"/>
   </div>}
@@ -279,31 +261,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
      
 
        <div className='cont3'>
-     <button disabled={isLoadingButton}  form="my-form" type="submit"  className="px-12 py-4 mt-8 bg-red-500 text-white text-sm text-bold rounded">
-  
-  {isLoadingButton ? (
-        <svg
-          className="animate-spin mr-2 h-5 w-5 text-white"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          />
-        </svg>
-      ) : 'Send Review'}
-</button>
+
        </div>
        </div>
         
