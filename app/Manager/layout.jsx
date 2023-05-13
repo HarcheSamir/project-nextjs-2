@@ -110,7 +110,7 @@ export default function Admin({ children }) {
     <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={account.profileImageUrl}/>
     </div> 
     <p className='hidden sm:block font-bold mt-2 text-xl font-mono text-neutral-100'>{account?.name}</p>
-    <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account?.job}</p>
+    <p className='hidden text-center sm:block font-bold mt-1  text-xs font text-neutral-400'>{account?.job} / HR Manager</p>
 
  
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">
