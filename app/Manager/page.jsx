@@ -33,7 +33,7 @@ export default function Page() {
       const { data } = await axios.get("https://server-social-benefits.vercel.app/searchFilter", {
         params: {
           for: query,
-          status:'pending', 
+          manager_review:'pending', 
           page: pagination.currentPage || 1,
           limit: 10,
         },
