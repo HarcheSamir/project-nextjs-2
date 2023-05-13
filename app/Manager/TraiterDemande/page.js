@@ -11,13 +11,27 @@ import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/
 import Image from 'next/image';
 import * as Yup from 'yup';
 import {AiFillFileImage} from 'react-icons/ai'
-
+import { AiOutlineCheckCircle,  AiOutlineCheck } from "react-icons/ai";
+import Link from 'next/link';
 import 'react-icons'
 
 const validationSchema = Yup.object({
-  state: Yup.string().required('Please select a state')
+  state: Yup.string().required('Please select a state') ,
+  motif : Yup.string().required()
 });
 export default function Page() {
+  const [approved , setApproved] = useState(false)
+  const [filled , setFilled] = useState(false)
+  const [isLoadingButton, setLoadingButton] = useState(false) ;
+   const [done, setDone] = useState(false)
+  const [textAreaHeight, setTextAreaHeight] = useState('auto');
+
+  function handleTextAreaChange(event) {
+    const element = event.target;
+    setTextAreaHeight(`${element.scrollHeight}px`);
+  }
+
+
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -133,7 +147,21 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 </div>
     </div>
      </div>}
+     {done &&
+<div className="w-screen absolute top-0 left-0 z-50  bg-blue-900/30  h-screen">
+    <div className="h-screen  relative w-screen ">
+    <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>
+        <div className='h-3/5 flex items-center justify-center bg-green-500 w-full top-0'>
+          <AiOutlineCheckCircle className=' h-[50%] text-white  w-[50%]' />
+        </div>
+        <p className='font-bold text-2xl mt-2 font-mono  text-neutral-900'>Great!</p>
+        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Success! The review was submitted successfully. </p>
+        <Link href='/Manager'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
+      </div>
+    </div>
 
+</div>
+ }
 
   <div className='objetdem max-w-[60rem]'>
       <div className='cont1'>
@@ -174,32 +202,108 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 </div>
        </div>
        <div className='cont'>
-       <h3>TRAITEMENT DE LA DEMANDE</h3>
+       <h3 className='pl-8'>TRAITEMENT DE LA DEMANDE</h3>
        
 
+       <Formik
+  initialValues={{
+    state: '' ,motif:'' , amount :null  ,
+  }}
+  validationSchema={approved ? Yup.object({
+    state: Yup.string().required('Please select a state') ,
+    amount:Yup.number().required(), 
+    motif : Yup.string().required()
+  }) :Yup.object({
+    state: Yup.string().required('Please select a state') ,
+    motif : Yup.string().required(), 
+  }) }
+  onSubmit={(values, { setSubmitting }) => {
+    setLoadingButton(true)
+  
+    axios
+      .post("https://server-social-benefits.vercel.app/reviewRequest", {
+      id:id , review : values.state , email:localStorage.getItem('id') ,amount:values.amount
+      })
+      .then((response) => {
+        console.log(response.data);
+        setLoadingButton(false)
+        setDone(true)
 
-       
-       <div className='cont4'>
-        <div className='cont41'>
-         <input type='radio' name='state' value="accepter demande" 
-         onChange={()=>{}}
-         />Accepter demande
-         </div>
-         <div className='cont42'>
-         <input   type='radio' name='state' value="refuser demande" 
-         
-         onChange={()=>{}}
-         />Refuser demande
-         </div>
-        </div>
+      })
+      .catch((error) => {
+        console.log(error);
+        setSubmitting(false);
+        setLoading(false)
+        setLoadingButton(false)
+      });
+  }}
+>
+  {({ values , handleBlur ,handleChange}) => (
+    <Form id='my-form' className='flex flex-col'>
+             <div className='cont4'>
 
-       <h2>MOTIF DE REFUS / ACCEPTATION :</h2>
-       <p> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </p>
+      <div className='cont41'>
+        <Field type='radio' onClick={()=>{setApproved(true) , setFilled(true)}} name='state' value="approved" />
+        Accepter demande
+      </div>
+      <div className='cont42'>
+        <Field type='radio' onClick={()=>{setApproved(false), setFilled(true)}} name='state' value="rejected" />
+        Refuser demande
+      </div>
+      </div>
+      <ErrorMessage name="state" component="span" className="error w-full text-center text-red-500 text-sm font-bold" />
+     { approved && <div>
+      <h2 className='pl-8'>Request Amount</h2>
+      <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
+ <Field component="textarea"     style={{ height: textAreaHeight }} onChange={handleChange}   value={values.amount}   name="amount"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
+      <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">123...</label>
+      <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="amount" component="span"/>
+  </div></div>
+  }
+     {(approved && filled)&&<h2 className='pl-8'>More Details:</h2> }
+     {(!approved && filled)&& <h2 className='pl-8'>Rejection purpose:</h2>}
+   { filled && <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
+ <Field component="textarea"     style={{ height: textAreaHeight }} onChange={(event) => {handleChange(event);handleTextAreaChange(event); }}   value={values.description}   name="motif"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
+      <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Aa...</label>
+      <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="motif" component="span"/>
+  </div>}
+
+    </Form>
+  )}
+</Formik>
+
+ 
+
+    
         
      
 
        <div className='cont3'>
-       <a href='/' className='a2'>Terminer</a>
+     <button disabled={isLoadingButton}  form="my-form" type="submit"  className="px-12 py-4 mt-8 bg-red-500 text-white text-sm text-bold rounded">
+  
+  {isLoadingButton ? (
+        <svg
+          className="animate-spin mr-2 h-5 w-5 text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          />
+        </svg>
+      ) : 'Send Review'}
+</button>
        </div>
        </div>
         
