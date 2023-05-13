@@ -19,7 +19,21 @@ export default function Page() {
   const [loading, setLoading] = useState(true)
   const [loadingPics , setLoadingPics] = useState(true)
   const[records , setRecords] = useState()
-  const [pics , setPics] = useState()
+  const [pics , setPics] = useState() ;
+
+  function getStatusColor(status) {
+    switch (status) {
+      case 'pending':
+        return 'bg-yellow-500'; // Apply yellow color
+      case 'completed':
+        return 'bg-green-500'; // Apply green color
+      case 'rejected':
+        return 'bg-red-500'; // Apply red color
+      default:
+        return ''; // No specific color class for other statuses
+    }
+  }
+  
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -150,8 +164,9 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
     <div className='objetdem max-w-[60rem] mb-20 '>
      <div className='cont1'>
+        <div className='flex w-full justify-end'>     <span className={`px-8 text-sm mr-16  animate-bounce rounded-full py-2 text-white ${getStatusColor(records[0].status)}`}>{records[0].status}</span>
+</div>
      <h1 className='px-8'>{records[0].about}</h1>
-     <span className='px-8'>{records[0].status}</span>
      </div>
      <div className='cont2'>
       <div className='cont5'>
