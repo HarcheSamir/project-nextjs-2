@@ -21,14 +21,14 @@ function getStatusColor(status) {
 }
 const Card = ({ icon, title, subtitle }) => {
   return (
-    <div className="flex cursor-default hover:bg-blue-500 group/item hover:scale-125 items-start rounded-xl bg-white p-4 shadow-lg">
+    <div className="flex cursor-default  group/item  hover:scale-[103%] items-start rounded-xl bg-white p-4 shadow-lg">
       <div className="flex h-12 w-12 items-center justify-center rounded-full border border-blue-100 bg-blue-50">
         {icon}
       </div>
 
       <div className="ml-4">
-        <h2 className="font-semibold group-hover/item:text-white">{title}</h2>
-        <p className="mt-2 text-sm group-hover/item:text-zinc-300">{subtitle}</p>
+        <h2 className="font-semibold group-hover/item:text-zinc-500">{title}</h2>
+        <p className="mt-2 text-sm group-hover/item:text-zinc-400">{subtitle}</p>
       </div>
     </div>
   );
