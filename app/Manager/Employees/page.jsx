@@ -98,11 +98,11 @@ export default function Page() {
       </div>
       <div className="flex flex-col w-full  ">
       {accounts .filter((account) => account.email !== 'admin@com').map((account, index) => (
-        <div key={index} onClick={()=>{router.push(`/Manager/EmployeeRequests?id=${encodeURIComponent(account.email)}`);}}    className="w-full  cursor-pointer   rounded-lg hover:bg-blue-200 hover:scale-[101%] group/item mb-1 px-4 mx-4 relative  mt-1 items-center flex ">
-              <p  className="md:w-[3%]  w-[5%]  text-sm font-bold  text-zinc-700 ">{index +1 }</p>
-              <div className="md:w-[30%] w-[50%] flex items-center  text-sm font-bold relative h-16 text-zinc-700 ml-2"><div className="h-[70%] overflow-hidden mr-2  flex-none relative object-cover rounded-md aspect-square"><Image alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" fill className="  mr-2 " src={account.profileImageUrl} /> </div><div className="flex w-full grow  h-full justify-center flex-col "> <p className="text-ellipsis w-[70%] overflow-hidden">{account.name}</p> <p className="text-xs text-zinc-400  text-ellipsis w-[70%] overflow-hidden ">{account.email}</p></div> </div>
-              <p className="md:w-[30%] w-[50%]  text-sm font-bold  text-zinc-700  ml-2">{account.job}</p>
-              <p className="md:w-[30%] hidden md:block  text-sm font-bold  text-zinc-700 ml-2">{account.phone}</p>
+        <div key={index} onClick={()=>{router.push(`/Manager/EmployeeRequests?id=${encodeURIComponent(account.email)}`);}}    className="w-full  cursor-pointer   rounded-lg hover:bg-blue-200 hover:scale-[101%] mb-1 px-4 mx-4 relative  mt-1 items-center flex ">
+              <p  className="md:w-[3%] cursor-pointer   w-[5%]  text-sm font-bold  text-zinc-700 ">{index +1 }</p>
+              <div className="md:w-[30%] cursor-pointer  w-[50%] flex items-center  text-sm font-bold relative h-16 text-zinc-700 ml-2"><div className="h-[70%] overflow-hidden mr-2  flex-none relative object-cover rounded-md aspect-square"><Image alt="https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg" fill className="  mr-2 " src={account.profileImageUrl} /> </div><div className="flex w-full grow  h-full justify-center flex-col "> <p className="text-ellipsis w-[70%] overflow-hidden">{account.name}</p> <p className="text-xs text-zinc-400  text-ellipsis w-[70%] overflow-hidden ">{account.email}</p></div> </div>
+              <p className="md:w-[30%] cursor-pointer  w-[50%]  text-sm font-bold  text-zinc-700  ml-2">{account.job}</p>
+              <p className="md:w-[30%] cursor-pointer  hidden md:block  text-sm font-bold  text-zinc-700 ml-2">{account.phone}</p>
         
             </div>
             

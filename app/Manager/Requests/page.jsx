@@ -3,8 +3,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
+
   const [query, setQuery] = useState("");
   const [records, setRecords] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -90,7 +93,7 @@ export default function Page() {
             </div>
           )}
           {!loading && records.map((request, index) => (
-            <div key={index} className="w-full h-16 rounded-lg hover:bg-blue-200 hover:scale-[101%] group/item mb-1 px-4 mx-4 relative mt-1 items-center flex ">
+            <div key={index}  onClick={()=>{router.push(`/Manager/A?id=${encodeURIComponent(request.id)}`);}}  className="w-full h-16 cursor-pointer rounded-lg hover:bg-blue-200 hover:scale-[101%]  mb-1 px-4 mx-4 relative mt-1 items-center flex ">
               <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-zinc-700 "> {index + 1 + (pagination.currentPage - 1) * 10}</p>
               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.about}</p>
               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-zinc-700 ml-2">{request.status}</p>

@@ -21,8 +21,8 @@
   
   .App {
     font-family: 'Bahnschrift';
-    width: 100vw;
-    height: 100vh ;
+    width: full ;
+    height: full ;
     font-weight: bold;
   }
   
@@ -101,27 +101,9 @@
     margin-bottom: 50px;
   }
   
-  .form-group-col .changer-photo {
-    color: #0B59A1;
-    margin-top: 35px;
-    margin-left: 100px;
-  }
+
   
-  .form-group-col .picture {
-    height: 90px;
-    width: 90px;
-    border-radius: 50%;
-  }
-  
-  .form-group col{
-  margin-right: 50px;
-  }
-  
-  
-  .form-row {
-    display: flex;
-    align-items: center;
-  }
+
   
   
   .Sidebar .job {
@@ -133,93 +115,28 @@
   
   
   
-  .form-container {
-    width: 880px;
-    margin: 70px;
-    padding: 20px;
-    border: 1px solid #E2E8F0;
-    justify-content: start;
-  }
+
   
-  .margin{
-    margin-left: 250px;
-  }
-  
+
   .main-title{
     color: #FF3548;
     size: 40px;
   }
+
+
+
   
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .group{
-    margin-left: 50px;
-  }
-  
-  .form-container label{
-    display: block;
-    margin-bottom: 15px;
-    color: #0B59A1;
-  }
-  
-  .input {
-    width: 330px;
-    height: 50px;
-    border-radius: 4px;
-    border: #E2E8F0 solid;
-  }
-  
-  .fom-row{
-    justify-content: center;
-  }
-  
-  .form-group-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
+
+
   
   
   buutton[type="submit"]:hover {
     background-color: #0069d9;
   }
   
-  .container {
-    font-family: 'Bahnschrift';
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .button-logout[type="submit"]{
-    width: 222px;
-    height: 50px;
-    padding: 10px;
-    margin-top: 60px;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-bottom: 25px;
-    background-color: transparent;
-    border: 1px solid;
-    border-color: #FF3548;
-    border-radius: 4px;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .button-switch[type="submit"]{
-    width: 222px;
-    height: 50px;
-    padding: 10px;
-    margin-left: 25px;
-    margin-right: 25px;
-    background-color: #FF3548;
-    color: #fff;
-    border-radius: 4px;
-    font-weight: bold;
-    border: none;
-  }
+
+
+ 
   
   .button-annuler{
     width: 160px;
@@ -250,4 +167,318 @@
     cursor: pointer;
   }
   
-  
+  .objetdem{
+    padding-top: 80px;
+    width: 100%;
+   }
+   .objetdem h1{
+    
+    font-family: 'Bahnschrift';
+    font-size: 40px;
+    line-height: 70px;
+    align-items: Left;
+    vertical-align: Top;
+    color:#FF3548;
+   }
+   .cont1 h1{
+     font-family: 'Bahnschrift';
+    font-size: 40px;
+    line-height: 70px;
+    align-items: Left;
+    vertical-align: Top;
+    color:#FF3548;
+   }
+   .cont1 span{
+    font-family: 'Bahnschrift';
+    font-size: 25px;
+    align-items: Left;
+    vertical-align: Top;
+    color:#B6B6B6;
+   }
+   .objetdem h2{
+    font-family: 'Bahnschrift';
+   font-size: 30px;
+   line-height: 70px;
+   align-items: Left;
+   vertical-align: Top;
+   color:#0B59A1;
+   }
+   
+   .objetdem p{
+    
+      margin-top: 20px;
+    margin-bottom: 30px;
+    color :#2C435A;
+    font-size: 25px;
+    font-weight: 400;
+    font-family: 'Bahnschrift';
+   
+   }
+   .cont1{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left : 16px;
+    margin-right : 16px;
+        border: 1px solid #D9D9D9;
+     
+   }
+   
+   .objimg{
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
+   
+   }
+
+   .etat{
+    display: flex;
+    font-family: Bahnschrift;
+   font-size: 25px;
+   font-weight: 400;
+   line-height: 24px;
+   letter-spacing: 0px;
+   text-align: center;
+   margin-bottom: 20px;
+   }
+   .etat .etat1{
+   color: #FFB800;
+   }
+   .etat .etat2{
+    color:#1DE019;
+    
+   }
+   .etat .etat3{
+    color: #FF3548;
+   }
+    .cont3{
+     
+     margin-bottom: 80px;
+     display: flex;
+     float: right;
+    }
+    
+    .cont3  a{
+     text-align: center;
+     justify-content: center;
+     margin: 50px;
+     width: 200px;
+    text-decoration: none;
+    padding: 0.8rem 2rem ;
+    border-radius: 6px;
+    font-family: 'Bahnschrift';
+   
+    }
+    .cont3 .a2{
+     color: aliceblue;
+     background: #FF3548;
+    }
+    .cont3 .a1{
+     border: 1px solid #FF3548;
+     color: #FF3548;
+    }
+   
+    .cont4{
+     margin-left: 150px;
+     margin-right: 100px;
+     margin-top: 50px;
+     margin-bottom: 30px;
+     display: flex;
+     justify-content: center;
+     justify-content: space-around;
+     text-align: center;
+     font-family: Bahnschrift;
+   font-size: 25px;
+   font-weight: 400;
+   line-height: 24px;
+   letter-spacing: 0px;
+   text-align: left;
+   color: #2C435A;
+    }
+   
+    .cont4 .cont41{
+     display: flex;
+     width: 240px;
+     justify-content: space-between;
+    }
+    .cont4 .cont42{
+     display: flex;
+     width: 240px;
+     justify-content: space-between;
+    }
+    
+   .cont5 .job{
+     font-family: 'Bahnschrift';
+     font-size: 20px;
+     align-items: Left;
+     vertical-align: Top;
+     color:#B6B6B6;
+   }
+   .cont5 .name {
+     font-family: 'Bahnschrift';
+   font-size: 25px;
+   font-weight: 400;
+   line-height: 24px;
+   letter-spacing: 0px;
+   
+   }
+   .cont2 {
+    margin-left : 16px;
+    margin-right : 16px;
+
+     padding-bottom: 40px;
+     border: 1px solid #D9D9D9;
+   }
+   .cont6{
+     padding-top: 10px;
+     margin-left: 80px;
+     border: 1px solid #D9D9D9;
+   }
+   .cont7{
+   padding-left: 150px;
+   padding-right: 150px;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content:space-between;
+   }
+   .cont8 a{
+      color: #E2E8F0;
+   }
+   .cont8 h4{
+     
+     font-family: Bahnschrift;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 24px;
+   letter-spacing: 0px;
+   text-align: left;
+   color:#2C435A;
+   }
+   .cont8{
+     padding: 20px;
+     border: 1px solid #D9D9D9;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+   }
+   .cont h3{
+     font-family: 'Bahnschrift';
+    font-size: 40px;
+    line-height: 70px;
+    align-items: Left;
+    vertical-align: Top;
+    color:#FF3548;
+   }
+   .cont p {
+     width: 100%;
+     border: 1px solid #D9D9D9; 
+   }
+   .cont {
+     padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 16px;
+    margin-right: 16px;
+
+    border: 1px solid #D9D9D9;
+   }
+   .suivant{
+    padding: 30px;
+    border: 1px solid #D9D9D9;
+    margin-left: 50px;
+   }
+   .suivant h3{
+    font-family: 'Bahnschrift';
+    font-size: 40px;
+    line-height: 70px;
+    align-items: Left;
+    vertical-align: Top;
+    color:#FF3548;
+    padding-left: 50px;
+   
+   }
+   .suivant p{
+    padding: 20px;
+    border: 1px solid #D9D9D9;
+   }
+   .inputtext{
+    display: flex;
+    justify-content: space-around;
+   }
+   #motif{
+    padding: 15px;
+    max-width: 600px;
+    min-width: 600px;
+    max-height: 250px;
+    min-height: 250px;
+    font-size: 25px;
+    color: #2C435A;
+   }
+   .suivant h4{
+    margin-top: 25px;
+    margin-left: 100px;
+    color: #0B59A1;
+    font-family: Bahnschrift;
+   font-size: 25px;
+   font-weight: 400;
+   line-height: 24px;
+   letter-spacing: 0px;
+   text-align: left;
+   }
+   #service{
+    margin-top: 20px;
+    margin-bottom: 50px;
+    width: 600px;
+    height: 50px;
+    color: #2C435A;
+    font-size: 15px;
+    padding-left: 15px;
+    background-color: white;
+    
+   }
+   .serv {
+    display: flex;
+    justify-content: space-around;
+   }
+   #ser{
+   
+    color: #2C435A;
+    font-size: 15px;
+   }
+   .rad {
+    display: flex;
+    flex-direction: column;
+    margin-left: 80px;
+    margin-right: 80px;
+    
+   }
+   .radi1{
+    display: flex;
+    flex-direction: row;
+    width: 600px;
+    justify-content: space-between;
+    margin: 20px;
+   }
+   .radi2{
+    display: flex;
+    flex-direction: row;
+   margin: 20px;
+    width: 600px;
+    justify-content: space-between;
+   }
+   .radi1 .rad1{
+    display: flex;
+     width: 120px;
+     justify-content: space-between;
+   }
+   .radi2 .rad2{
+    display: flex;
+     width: 120px;
+     justify-content: space-between;
+   }
+   #rad1{
+     width: 400px;
+     height: 40px;
+   }
+   #rad2{
+     height: 40px;
+   
+   }
