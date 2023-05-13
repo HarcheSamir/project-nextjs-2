@@ -98,7 +98,7 @@ export default function Page() {
         .catch((error) => {
           console.error(error);
         });
-      }, []);
+      }, [id]);
 
 
     const router = useRouter();

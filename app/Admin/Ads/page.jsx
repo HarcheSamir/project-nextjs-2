@@ -84,6 +84,7 @@ export default function Page() {
             src={announcements[activeIndex].cover_url}
             className="object-cover rounded-md"
             fill
+            alt=''
           />
         </div>
       </div>

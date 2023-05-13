@@ -33,7 +33,7 @@ export default function Page() {
 
     }
     fetchData();
-  }, []);
+  }, [id]);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -50,7 +50,7 @@ export default function Page() {
     };
 
     fetchProofs();
-  }, []);
+  }, [id]);
 
 
   const handleDotClick = (index) => {

@@ -32,7 +32,7 @@ export default function Page() {
       .catch((error) => {
         console.error(error);
       });
-    }, []);
+    }, [id]);
 
   useEffect(() => {
     async function fetchData() {
@@ -50,7 +50,7 @@ export default function Page() {
 
     }
     fetchData();
-  }, [query, pagination.currentPage]);
+  }, [query, pagination.currentPage ,id]);
 
   function handleInputChange(event) {
     setQuery(event.target.value);
