@@ -6,6 +6,7 @@ import 'react-icons'
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import Image from 'next/image';
+import { IoIosArrowDropdown } from 'react-icons/io';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
 function getStatusColor(status) {
@@ -29,6 +30,7 @@ export default function Page() {
 
   const id = searchParams.get('id');
   const [slider , setSlider] = useState(false)
+  const [down,setDown] = useState(false)
   const [loading, setLoading] = useState(true)
   const [loadingPics , setLoadingPics] = useState(true)
   const[records , setRecords] = useState()
@@ -89,7 +91,7 @@ console.log(data.records)
 
 
 
-  <div className='w-full flex flex-col items-center justify-center mb-20'>
+  <div className='w-full flex bg-white flex-col items-center justify-center mb-[20rem]'>
 
   {slider &&  <div className='absolute  h-screen w-screen top-0 left-0 z-50 '>
      <div className=' h-full relative flex items-center justify-center -full bg-black/80'>
@@ -164,12 +166,12 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
 
     <div className='objetdem max-w-[60rem] '>
-    <div className='cont1'>
+    <div  className='cont1 bg-white z-40'>
         <div className='flex w-full justify-end'>     <span className={`px-8 text-sm mr-16  animate-bounce rounded-full py-2 text-white ${getStatusColor(records[0].status)}`}>{records[0].status}</span>
 </div>
      <h1 className='px-8'>{records[0].about}</h1>
      </div>
-     <div className='cont2'>
+     <div  className='cont2  relative bg-white z-20'>
       <div className='cont5'>
      
         <div className='flex flex-row ml-8 m-4 items-center ' > 
@@ -205,24 +207,36 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
     
          
         </div>
-        <div className='contb'>
-        <p className='pl-8'>Approved By : <span className='text-[20px] text-zinc-400'>{records[0].reviewedBy}</span> </p>
-        <p className='pl-8'>At: <span className='text-[20px] text-zinc-400'>{new Date(records[0].reviewedByManagerAt).toLocaleDateString('en-US', {
+        <div  className='contb relative py-4 pl-4 text-red-500 bg-white z-20 flex flex-row underline underline-offset-1 text-sm font-bold items-center'> show review infos  <IoIosArrowDropdown
+          onClick={()=>{setDown(!down)}} 
+          className={`w-6 h-6 ml-4  transition-transform cursor-pointer text-red-500 ${
+            down ? "transform duration-500 rotate-180" : "duration-500"
+          }`}
+        ></IoIosArrowDropdown></div>
+
+        <div  className=' contb h-0 relative z-0 '> 
+        <div className={`${down ? ' top-0 left-0 absolute border-[1px] border-[#D9D9D9]  w-full  duration-300    translate-y-0' : 'absolute   w-full left-0 border-[1px] border-[#D9D9D9]    z-0  duration-300  -translate-y-full'} `}>
+        <label className='pl-8 z-0  mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Approved By : <span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{records[0].reviewedBy}</span> </label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.At: <span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByManagerAt).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
-})}</span></p>
-        <p className='pl-8'>With requested Amont of : <span className=' text-[20px] text-zinc-400'>{new Intl.NumberFormat('en-US').format(records[0].amount)} Da </span></p>
-        <p className='pl-8'>Extras : <span className='text-[20px] text-zinc-400 whitespace-pre-wrap'>{records[0].manager_motif}</span></p>
-        <p className='pl-8'>{records[0].accountant_review=='approved' ? 'Validated By Accountant At : ' : 'Rejected By Accountant At' }<span className='text-[20px] text-zinc-400'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {
+})}</span></label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.With requested Amont of : <span className=' text-[17px] font-bahnschrift font-normal text-gray-700'>{new Intl.NumberFormat('en-US').format(records[0].amount)} Da </span></label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Extras : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].manager_motif}</span></label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>{records[0].accountant_review=='approved' ? '.Validated By Accountant At : ' : '.Rejected By Accountant At' }<span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
-})}</span> </p>
-{records[0].accountant_review=='approved' ?         <p className='pl-8'>Accountant Reply : <span className='text-[20px] text-zinc-400 whitespace-pre-wrap'>{records[0].reply}</span></p>
-  :         <p className='pl-8'>Rejection purpose : <span className='text-[20px] text-zinc-400 whitespace-pre-wrap'>{records[0].accountant_motif}</span></p>
+})}</span> </label>
+{records[0].accountant_review=='approved' ?         <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Accountant Reply : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].reply}</span></label>
+  :         <label className='pl-8  text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Rejection purpose : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].accountant_motif}</span></label>
 }
+
+       
         </div>
+        </div>
+    
 
 
 
