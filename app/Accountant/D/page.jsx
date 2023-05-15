@@ -43,7 +43,7 @@ export default function Page() {
       });
       setRecords(data.records);
       setLoading(false);
-
+console.log(data.records)
     }
     fetchData();
   }, [id]);
@@ -214,7 +214,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 })}</span></p>
         <p className='pl-8'>With requested Amont of : <span className=' text-[20px] text-zinc-400'>{new Intl.NumberFormat('en-US').format(records[0].amount)} Da </span></p>
         <p className='pl-8'>Extras : <span className='text-[20px] text-zinc-400 whitespace-pre-wrap'>{records[0].manager_motif}</span></p>
-        <p className='pl-8'>{records[0].accountant_review='approved' ? 'Validated By Accountant At : ' : 'Rejected By Accountant At' }<span className='text-[20px] text-zinc-400'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {
+        <p className='pl-8'>{records[0].accountant_review=='approved' ? 'Validated By Accountant At : ' : 'Rejected By Accountant At' }<span className='text-[20px] text-zinc-400'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {
   year: 'numeric',
   month: 'long',
   day: 'numeric'
