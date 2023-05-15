@@ -14,6 +14,8 @@ function getStatusColor(status) {
       return 'text-green-500'; // Apply green color
     case 'rejected':
       return 'text-red-500'; // Apply red color
+      case 'archive':
+      return 'text-blue-500';
     default:
       return ''; // No specific color class for other statuses
   }

@@ -19,6 +19,8 @@ function getStatusColor(status) {
       return 'text-green-500'; // Apply green color
     case 'rejected':
       return 'text-red-500'; // Apply red color
+      case 'archive':
+      return 'text-blue-500';
     default:
       return ''; // No specific color class for other statuses
   }
@@ -49,7 +51,8 @@ export default function Page() {
       const { data } = await axios.get("https://server-social-benefits.vercel.app/searchFilter", {
         params: {
           for: query,
-          manager_review:'approved' ,
+          accountant_review:'approved' ,
+          status : 'completed' ,
           page: pagination.currentPage || 1,
           limit: 10,
         },

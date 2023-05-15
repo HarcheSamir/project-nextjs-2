@@ -5,7 +5,6 @@ import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
-
 function getStatusColor(status) {
   switch (status) {
     case 'pending':
@@ -14,6 +13,8 @@ function getStatusColor(status) {
       return 'text-green-500'; // Apply green color
     case 'rejected':
       return 'text-red-500'; // Apply red color
+      case 'archive':
+      return 'text-blue-500';
     default:
       return ''; // No specific color class for other statuses
   }
