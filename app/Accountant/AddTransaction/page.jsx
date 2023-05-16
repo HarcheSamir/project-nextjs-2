@@ -50,7 +50,6 @@ export default function Page() {
       setLoading1(true);
       const { data } = await axios.get("https://server-social-benefits.vercel.app/searchFilter", {
         params: {
-          accountant_review:'approved' ,
           status : 'completed' ,
           page: pagination.currentPage || 1,
           limit: 10,
