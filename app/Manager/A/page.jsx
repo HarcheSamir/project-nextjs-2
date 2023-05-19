@@ -184,6 +184,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
       <h2 className='px-8'>CONTENU :</h2>
       <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
        {records[0].description}</p>
+     
        <h2 className='px-8' >PIECE JOINTES :</h2>
 
        <div className='  py-8 w-[80%]  gap-4 sm:gap-auto grid grid-cols-1 sm:grid-cols-4 justify-center items-center'>
@@ -197,7 +198,12 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
           
         
        </div>
-
+       <h2 className='px-8'>Requested Amount :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].requested_amount.toLocaleString('en-US', { style: 'decimal' })} Da</p>
+       <h2 className='px-8'>Service :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].service_title}</p>
        <div className='cont3'>
      <a onClick={()=>{router.push(`/Manager/TraiterDemande?id=${encodeURIComponent(id)}`);}}className='a2 cursor-pointer'>Traiter la demande</a>
        </div>

@@ -199,6 +199,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
    <h2 className='px-8'>CONTENU :</h2>
       <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
        {records[0].description}</p>
+    
        <h2 className='px-8' >PIECE JOINTES :</h2>
 
 <div className='  py-8 w-[80%]  gap-4 sm:gap-auto grid grid-cols-1 sm:grid-cols-4 justify-center items-center'>
@@ -212,6 +213,12 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
    
  
 </div>
+<h2 className='px-8'>Requested Amount :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].requested_amount.toLocaleString('en-US', { style: 'decimal' })} Da</p>
+       <h2 className='px-8'>Service :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].service_title} </p>
        </div>
        <div className='cont'>
        <h3 className='pl-8'>TRAITEMENT DE LA DEMANDE</h3>
@@ -266,10 +273,22 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
       <ErrorMessage name="state" component="span" className="error w-full text-center text-red-500 text-sm font-bold" />
      { approved && <div>
       <h2 className='pl-8'>Request Amount</h2>
-      <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
- <Field component="textarea"     style={{ height: textAreaHeight }} onChange={handleChange}   value={values.amount}   name="amount"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
-      <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">123...</label>
-      <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="amount" component="span"/>
+      <div className="relative mt-5 ml-2 mr-2 flex w-full flex-col mb-8 col-span-2  ">
+      <Field
+          className={` peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-200 dark:text-neutral-200 dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]`}
+          name="amount"
+          type="number"
+          placeholder="Amount"
+          onBlur={handleBlur}
+         onChange={handleChange}
+         value={values.amount}
+        
+        />
+<label
+    
+    className="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary"
+    >Amount</label
+  >        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="amount" component="span"  />
   </div></div>
   }
      {(approved && filled)&&<h2 className='pl-8'>More Details:</h2> }

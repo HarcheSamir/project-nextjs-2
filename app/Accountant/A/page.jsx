@@ -202,7 +202,9 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
         
        </div>
 
-    
+       <h2 className='px-8'>Service :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].service_title} </p>
          
         </div>
         <div className='contb'>

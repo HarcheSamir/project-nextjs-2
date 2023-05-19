@@ -90,8 +90,10 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         images: Yup.array().min(1, "Please select at least one image"),
         about: Yup.string().required(),
         description: Yup.string(),
+        amount : Yup.number().required() 
       })}
       onSubmit={(values, { setSubmitting }) => {
+        console.log(selectedItem)
         setLoadingButton(true)
         const formData = new FormData();
         for (let i = 0; i < values.images.length; i++) {
@@ -101,6 +103,9 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
        formData.append("requestedBy", localStorage.getItem('id'));
         formData.append("about", values.about);
         formData.append("description",values.description);
+        formData.append("service" ,selectedItem.id) ;
+        formData.append("service_title" ,selectedItem.title) ;
+        formData.append("requested_amount", values.amount)
         axios
           .post("https://server-social-benefits.vercel.app/uploadRequest", formData, {
             headers: {
@@ -139,12 +144,18 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 <div className="col-span-2  relative mb-3">
-  <Field as="select" name="about" onChange={handleChange} onBlur={handleBlur} value={values.about} className="block appearance-none w-full text-neutral-400 focus:text-black  duration-500  bg-white border border-gray-400 hover:border-blue-500 py-4 pl-2 rounded   focus:outline-none focus:shadow-outline">
+  <Field as="select" name="about" 
+   onChange={(event) => {
+    handleChange(event);
+    setSelectedItem(items.find((item) => item.benefit_title === event.target.value))
+    
+     }}
+   onBlur={handleBlur} value={values.about} className="block appearance-none w-full text-neutral-400 focus:text-black  duration-500  bg-white border border-gray-400 hover:border-blue-500 py-4 pl-2 rounded   focus:outline-none focus:shadow-outline">
     <option  value="">Select The Concerned Program</option>
   
     {items.map((item ,index) => (
     <option key={index}>
-      {item.title}
+      {item.benefit_title}
     </option>
   ))}
   </Field>
@@ -165,7 +176,23 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
-
+      <div className="relative mt-5 ml-2 mr-2 flex w-full flex-col mb-8 col-span-2  ">
+      <Field
+          className={`${touched.email && errors.email ? 'error' : ''} peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-200 dark:text-neutral-200 dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]`}
+          name="amount"
+          type="number"
+          placeholder="Amount"
+          onBlur={handleBlur}
+         onChange={handleChange}
+         value={values.amount}
+        
+        />
+<label
+    
+    className="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary"
+    >Amount</label
+  >        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="amount" component="span"  />
+  </div>
 
 
  <div className="relative mt-5 ml-2 mr-2 flex w-full flex-col mb-8 col-span-2  ">

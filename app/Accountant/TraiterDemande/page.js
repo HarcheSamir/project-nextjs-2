@@ -6,6 +6,9 @@ import '../../globals.css'
 import { piecejointes } from '@/components/piecejointes';
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
+import {RiImageAddFill} from 'react-icons/ri'
+import { IoMdCloseCircle } from "react-icons/io";
+
 import { useRouter } from 'next/navigation';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
 import Image from 'next/image';
@@ -212,19 +215,51 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
    
  
 </div>
+
+<h2 className='px-8'>Service :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].service_title} </p>
+       <h2 className='px-8'>Requested Amount :</h2>
+      <p className="whitespace-pre-wrap px-8"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+       {records[0].amount.toLocaleString('en-US', { style: 'decimal' })} Da</p>
        </div>
+      
        <div className='cont'>
        <h3 className='pl-8'>TRAITEMENT DE LA DEMANDE</h3>
        
+       <div className="cont4">
+  <div className="cont41">
+    <input
+      type="radio"
+      checked={approved}
+      onChange={() => {
+        setApproved(true);
+        setFilled(true);
+      }}
+      value="approved"
+    />
+    Validate
+  </div>
+  <div className="cont42">
+    <input
+      type="radio"
+      checked={!approved}
+      onChange={() => {
+        setApproved(false);
+        setFilled(true);
+      }}
+      value="rejected"
+    />
+    Reject
+  </div>
+</div>
 
-       <Formik
+    
+{ !approved &&   <Formik
   initialValues={{
-    state: '' ,motif:'' , reply : '' ,
+    state: 'rejected' ,motif:''  ,
   }}
-  validationSchema={approved ? Yup.object({
-    state: Yup.string().required('Please select a state') ,
-    reply : Yup.string().required()
-  }) :Yup.object({
+  validationSchema={Yup.object({
     state: Yup.string().required('Please select a state') ,
     motif : Yup.string().required(), 
   }) }
@@ -233,7 +268,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
   
     axios
       .post("https://server-social-benefits.vercel.app/validateRequest", {
-      id:id , review : values.state , email:localStorage.getItem('id') ,reply:values.reply , motif : values.motif
+      id:id , review : 'rejected' , email:localStorage.getItem('id')  , motif : values.motif
       })
       .then((response) => {
         console.log(response.data);
@@ -251,44 +286,174 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 >
   {({ values , handleBlur ,handleChange}) => (
     <Form id='my-form' className='flex flex-col'>
-             <div className='cont4'>
-
-      <div className='cont41'>
-        <Field type='radio' onClick={()=>{setApproved(true) , setFilled(true)}} name='state' value="approved" />
-        Validate 
-      </div>
-      <div className='cont42'>
-        <Field type='radio' onClick={()=>{setApproved(false), setFilled(true)}} name='state' value="rejected" />
-        Reject
-      </div>
-      </div>
-      <ErrorMessage name="state" component="span" className="error w-full text-center text-red-500 text-sm font-bold" />
-
-     {(approved && filled)&&<h2 className='pl-8'>Reply :</h2> }
-     {(!approved && filled)&& <h2 className='pl-8'>Rejection purpose:</h2>}
-   { (!approved && filled) &&<div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
+            
+   <h2 className='pl-8'>Rejection purpose:</h2>
+ <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
  <Field component="textarea"     style={{ height: textAreaHeight }} onChange={(event) => {handleChange(event);handleTextAreaChange(event); }}   value={values.description}   name="motif"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
       <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Aa...</label>
       <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="motif" component="span"/>
-  </div>}
-  { (approved && filled)&& <div className="relative mt-5 mx-4 flex w-[90%] flex-col mb-8   ">
- <Field component="textarea"     style={{ height: textAreaHeight }} onChange={(event) => {handleChange(event);handleTextAreaChange(event); }}   value={values.description}   name="reply"   onBlur={handleBlur} className={`block  pt-1 resize-none   h-auto  w-full text-sm text-black bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-400 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer`} placeholder=" " />
-      <label  className="pl-2  peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Aa...</label>
-      <ErrorMessage className="text-red-500 w-full ml-8 text-center  text-sm error-message font-bold" name="reply" component="span"/>
-  </div>}
+  </div>
+ 
 
     </Form>
   )}
-</Formik>
+</Formik>}
 
- 
+ {approved &&  <Formik 
+    initialValues={{
+        images: [],amount :  undefined
+      }}
+      
+      validationSchema={Yup.object({
+        images: Yup.array().min(1, "Please select at least one image"),
+        amount: Yup.number().required()
+      })}
+      onSubmit={(values, { setSubmitting }) => {
+        setLoadingButton(true)
+        const formData = new FormData();
+       
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("pic", values.images[i]);
+        }
+        formData.append('amount', values.amount);
+     
+          formData.append("id", id);
+        
+                axios
+          .post("https://server-social-benefits.vercel.app/uploadTransaction", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            console.log(response.data);
+            setSubmitting(false);
+            setLoadingButton(false)
+            setDone(true)
+
+          })
+          .catch((error) => {
+            console.log(error);
+            setSubmitting(false);
+            setLoadingButton(false)
+          });
+      }}
+    
+    >
+      {({ values,errors, touched , isSubmitting, setFieldValue ,handleBlur ,handleChange }) => (
+
+
+
+
+
+
+
+
+
+        <Form id="my-form2" className="mb-12  relative gap-2 grid grid-cols-2  " >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="flex flex-col  col-span-2  ml-2">
+
+<label className="block  mb-2 font-bold text-[#0B59A1] mt-8 text-26px">Amount:</label>
+
+<div className="relative  break-all py-2" >
+
+  <div className="relative mt-2 w-full mb-3">
+        <Field
+          className={`${touched.email && errors.email ? 'error' : ''} peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-200 dark:text-neutral-200 dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]`}
+          name="amount"
+          type="number"
+          placeholder="Amount"
+          onBlur={handleBlur}
+         onChange={handleChange}
+         value={values.amount}
+        
+        />
+<label
+    
+    className="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary"
+    >Amount</label
+  >        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="amount" component="span"  />
+      </div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div className="w-full mt-12 col-span-2 flex flex-col">
+    <label className="text-zinc-700 font-bold mb-4 text-xl ml-4">Select Needed Documents :</label>
+<div className="grid gap-2 ml-6 w-fit grid-cols-2 md:grid-cols-3">
+
+{values.images && Array.from(values.images).map((image ,index) => (
+<div key={index} className="w-20 md:w-40 shadow ring-zinc-400 ring-2 rounded overflow-hidden md:h-40 relative h-20">
+<Image key={image.name} fill src={URL.createObjectURL(image)} alt="selected" className="rounded object-cover" />
+<div className="absolute -top-0 -right-0">
+        <button type="button" onClick={() => {
+          const newImages = [...values.images];
+          newImages.splice(index, 1);
+          setFieldValue("images", newImages);
+        }} >
+          <IoMdCloseCircle className="md:w-12 w-8 h-8 md:h-12 text-red-500" />
+        </button>
+      </div>
+</div>
+))}
+
+<div className=" aspect-square w-20 md:w-40  rounded border-[3px]  border-zinc-400  relative">
+<RiImageAddFill className="md:h-16  h-10 w-10 text-zinc-400 md:w-16 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
+<input
+id="images"
+name="images"
+type="file"
+accept=".png, .jpg, .jpeg"
+onChange={(event) => {
+const files = event.currentTarget.files;
+const fileArray = Array.from(files);
+setFieldValue("images", fileArray);
+}}
+className="opacity-0 cursor-pointer w-20 h-20 md:w-40 md:h-40 bg-red-900"
+/>
+
+
+</div>
+</div>
+
+<ErrorMessage name="images" component="span" className="text-red-500 ml-6 mt-2 text-xs error-message font-bold" />
+
+</div>
+         
+        </Form>
+      )}
+    </Formik>}
 
     
         
      
 
        <div className='cont3'>
-     <button disabled={isLoadingButton}  form="my-form" type="submit"  className="px-12 py-4 mt-8 bg-red-500 text-white text-sm text-bold rounded">
+     <button disabled={isLoadingButton}  form={approved ? 'my-form2' : 'my-form'}type="submit"  className="px-12 py-4 mt-8 bg-red-500 text-white text-sm text-bold rounded">
   
   {isLoadingButton ? (
         <svg
@@ -316,6 +481,8 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
        </div>
        </div>
         
+
+
   </div>
   </div>
 
