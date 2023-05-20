@@ -119,7 +119,7 @@ export default function Page() {
         </td>
         <td className="text-[18px] p-3">{title}</td>
         <td className="text-[18px] p-3">{amount.toLocaleString('en-US', { style: 'decimal' })} DA</td>
-        <td className="text-[18px] p-3 text-center" >{date_modified}</td>
+        <td className="text-[18px] p-3 text-center" >{new Date(date_modified).toLocaleString()}</td>
         <td className="p-3">
           <a
             className="gap-8 flex items-center justify-center text-gray-400 hover:text-red-400 mx-2"
