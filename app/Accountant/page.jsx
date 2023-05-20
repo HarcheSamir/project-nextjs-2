@@ -64,7 +64,7 @@ export default function Page() {
     <div className="w-[95%] flex flex-col ">
 
 
-<p className="text-4xl font-mono font-bold text-zinc-700 mt-16 ml-5">Requests to review :</p>
+<p className="text-4xl font-mono font-bold text-zinc-700 mt-16 ml-5">Requests to validate :</p>
      <div className="mb-4 mt-4 justify-between flex items-center w-full ">
 
 
