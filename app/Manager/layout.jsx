@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
-import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd } from 'react-icons/ai';
+import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd , AiFillHome} from 'react-icons/ai';
 import {BsFillCollectionFill ,BsStars, BsStar , BsFillPeopleFill} from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
 import { MdCollectionsBookmark } from 'react-icons/md';
@@ -114,6 +114,8 @@ export default function Admin({ children }) {
 
  
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">
+  <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><AiFillHome className='h-4 w-4'/> Home</div></Link>
+
   <Link href='/Manager/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><MdCollectionsBookmark className='h-4 w-4'/> Requests</div></Link>
   <Link href='/Manager/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
   <Link href='/Manager/Employees'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Employees</div></Link>
@@ -150,6 +152,8 @@ export default function Admin({ children }) {
 
 
     <div className={ nav ? `flex absolute top-14 sm:hidden animate duration-300   left-0 right-0 z-10 flex-col w-full bg-[#35465e]` : '-translate-y-[200%] flex absolute left-0 right-0 z-10 flex-col w-full bg-[#35465e] animate duration-300'}>
+    <Link onClick={()=>{setNav(!nav)}} href='/Manager'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><AiFillHome className='h-3 w-3'/> Home</div></Link>
+
       <Link onClick={()=>{setNav(!nav)}} href='/Manager/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Requests</div></Link>
       <Link onClick={()=>{setNav(!nav)}} href='/Manager/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
 

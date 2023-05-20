@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Link from 'next/link';
-import { AiOutlineMenu , AiOutlineClose} from 'react-icons/ai';
+import { AiOutlineMenu , AiOutlineClose, AiFillHome} from 'react-icons/ai';
 import {BsFillPeopleFill ,BsFillCollectionFill ,BsStars, BsStar } from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
 
