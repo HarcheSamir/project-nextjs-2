@@ -9,7 +9,7 @@ const startBackgroundProcess = () => {
   setInterval(() => {
     axios.get('https://socialbenefitssamir.onrender.com/background')
       .then(() => {
-        //console.log('Background process triggered');
+        /*console.log('Background process triggered');*/
       })
       .catch((error) => {
         console.error('Error triggering background process:', error);

@@ -71,7 +71,7 @@ export default function Page() {
       }, 0);
   
       setEmployeesCount(uniqueEmployeesCount);
-      setRequestCount(data.records.length);
+      setRequestCount(data.infos.totalRecords);
       setPendingRequestsCount(pendingRequestsCount);
     }
   
