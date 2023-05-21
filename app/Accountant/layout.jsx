@@ -11,16 +11,16 @@ import {BsFillCollectionFill ,BsStars, BsStar , BsFillPeopleFill} from 'react-ic
 import {GoSignOut ,GoSettings} from 'react-icons/go'
 import { MdCollectionsBookmark } from 'react-icons/md';
 import { RiBillFill , RiMoneyDollarCircleFill } from 'react-icons/ri';
-
+import { BsBellFill } from 'react-icons/bs';
 export default function Admin({ children }) {
     const[nav , setNav] = useState(false)
     const [isLoadingButton, setLoadingButton] = useState(false)
-
+const [notifs , setNotifs] = useState(false)
     const router = useRouter();
   const [isLoading, setLoading] = useState(true)
   const [account, setAccount] = useState(null);
   const[profileImageUrl,setProfileImageUrl]=useState('https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg')
-
+  const[notifNums ,setNotifNums] = useState(0)
   
   ////////protecting Route
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function Admin({ children }) {
         if(response.data.account.role!='1001') router.push('/Employee')
         setAccount(response.data.account)
         console.log(response.data.account)
+        setNotifNums(response.data.account.notifications)
         setLoading(false)
      } 
      })
@@ -41,9 +42,40 @@ export default function Admin({ children }) {
      });
 }, [router]);
 
+const handleClick = async () => {
+  try {
+    setNotifNums(0)
+    await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:localStorage.getItem('id'),  number: 0 });
+    console.log('Notifications updated successfully');
+  } catch (error) {
+    console.error('Error updating notifications:', error);
+  }
+};
+
+useEffect(() => {
+  // const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
+  const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
+   ws.onopen = () => {
+     console.log('WebSocket connection established.');
+   };
+
+   ws.onmessage = (event) => {
+     const newDecision = JSON.parse(event.data);
+     if(newDecision.data.email==localStorage.getItem('id'))
+     {console.log(newDecision.data)
+      setNotifNums(newDecision.data.number)
+    }
+   };
+
+   ws.onclose = () => {
+     console.log('WebSocket connection closed.');
+   };
 
 
-
+   return () => {
+     ws.close();
+   };
+ }, []);
 
 
 
@@ -54,15 +86,24 @@ export default function Admin({ children }) {
    
     <section className='flex flex-col    w-full sm:flex-row'>
 
-    <div className='  sm:flex-none z-20 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-hidden flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
-    <div className="flex items-center flex-col w-full">
+    <div className='  sm:flex-none z-20  sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-visible flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
+    <div className="flex items-center overflow-visible flex-col w-full">
 
 
 
 
 
-    <div className="flex w-full px-4 mt-4 flex-row justify-between">
-       <GoSettings  className='w-5 hidden sm:block h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+    <div className="flex w-full px-4 mt-4 overflow-visible relative flex-row justify-between">
+       <div className='relative overflow-visible ' onClick={()=>{setNotifs(!notifs) ; handleClick()}} >       <BsBellFill  className='w-5 hidden sm:block h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+
+{notifNums!=0 && <div className='absolute flex items-center justify-center bottom-[60%] left-[70%] bg-red-600 text-white rounded-full text-xs aspect-square'><p className='text-[12px] mx-[5px]'>{notifNums}</p></div>
+}
+</div>
+        {notifs &&
+         <div className='absolute  top-full mt-4 ml-4 left-0 z-50 w-[25rem] rounded shadow-lg max-h-[50rem] min-h-[20rem] bg-red-500'>
+
+         </div>
+}
       <div>
       { nav ? <AiOutlineClose onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
       : <AiOutlineMenu onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
@@ -202,7 +243,7 @@ export default function Admin({ children }) {
 
 
     <section className='sm:grow  sm:w-min   h-screen overflow-hidden'>
-    <div className='h-full  w-full overflow-y-auto'>
+    <div onClick={()=>{setNotifs(false)}} className='h-full  w-full overflow-y-auto'>
      {children}
     </div>
     </section>

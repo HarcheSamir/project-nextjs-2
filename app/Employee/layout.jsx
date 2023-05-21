@@ -9,14 +9,20 @@ import Link from 'next/link';
 import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd } from 'react-icons/ai';
 import {BsFillPeopleFill ,BsFillCollectionFill ,BsStars, BsStar ,BsFillPersonFill } from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
+import { BsBellFill } from 'react-icons/bs';
 
 
 export default function Admin({ children }) {
     const[nav , setNav] = useState(false)
     const [isLoadingButton, setLoadingButton] = useState(false)
+    const [notifs , setNotifs] = useState(false)
 
     const router = useRouter();
   const [isLoading, setLoading] = useState(true)
+  const [account, setAccount] = useState(null);
+  const[profileImageUrl,setProfileImageUrl]=useState('https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg')
+  const[notifNums ,setNotifNums] = useState(0)
+
 
   ////////protecting Route
   useEffect(() => {
@@ -42,9 +48,11 @@ export default function Admin({ children }) {
           router.push('/Accountant');
           break;
         default:
-          console.log(response?.data?.email);
-          setLoading(false);
-          break;
+       setAccount(response.data.account)
+        console.log(response.data.account)
+        setNotifNums(response.data.account.notifications)
+        setLoading(false)     
+             break;
       } } 
      })
      .catch((error) => {console.error(error?.response?.data) ; router.push('/')
@@ -52,30 +60,41 @@ export default function Admin({ children }) {
 }, [router]);
 
 
-const [account, setAccount] = useState(null);
-const[profileImageUrl,setProfileImageUrl]=useState('https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg')
+const handleClick = async () => {
+  try {
+    setNotifNums(0)
+    await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:localStorage.getItem('id'),  number: 0 });
+    console.log('Notifications updated successfully');
+  } catch (error) {
+    console.error('Error updating notifications:', error);
+  }
+};
+
 
 useEffect(() => {
-  axios.get('https://server-social-benefits.vercel.app/accounts', {
-    params: {
-      email: localStorage.getItem('id')
+  // const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
+  const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
+   ws.onopen = () => {
+     console.log('WebSocket connection established.');
+   };
+
+   ws.onmessage = (event) => {
+     const newDecision = JSON.parse(event.data);
+     if(newDecision.data.email==localStorage.getItem('id'))
+     {console.log(newDecision.data)
+      setNotifNums(newDecision.data.number)
     }
-  })
-  .then((response) => {
-    setAccount(response.data[0]);
-    setProfileImageUrl(response.data[0].profileImageUrl)
+   };
 
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}, []);
+   ws.onclose = () => {
+     console.log('WebSocket connection closed.');
+   };
 
 
-/////loading state
- if (isLoading) return <p>Loading...</p>
-
-
+   return () => {
+     ws.close();
+   };
+ }, []);
 
 
 ////////loading state 
@@ -85,16 +104,24 @@ useEffect(() => {
    
     <section className='flex flex-col    w-full sm:flex-row'>
 
-    <div className='  sm:flex-none z-20 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-hidden flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
-    <div className="flex items-center flex-col w-full">
+<div className='  sm:flex-none z-20  sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-visible flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
+    <div className="flex items-center overflow-visible flex-col w-full">
 
 
 
 
 
-    <div className="flex w-full px-4 mt-4 flex-row justify-between">
-       <GoSettings  className='w-5 hidden sm:block h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
-      <div>
+    <div className="flex w-full px-4 mt-4 overflow-visible relative flex-row justify-between">
+    <div className='relative overflow-visible ' onClick={()=>{setNotifs(!notifs) ; handleClick()}} >       <BsBellFill  className='w-5 hidden sm:block h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
+
+{notifNums!=0 && <div className='absolute flex items-center justify-center bottom-[60%] left-[70%] bg-red-600 text-white rounded-full text-xs aspect-square'><p className='text-[12px] mx-[5px]'>{notifNums}</p></div>
+}
+</div>
+        {notifs &&
+         <div className='absolute  top-full mt-4 ml-4 left-0 z-50 w-[25rem] rounded shadow-lg max-h-[50rem] min-h-[20rem] bg-red-500'>
+
+         </div>
+}      <div>
       { nav ? <AiOutlineClose onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
       : <AiOutlineMenu onClick={()=>{setNav(!nav)}} className='w-5  sm:hidden h-5 cursor-pointer hover:text-neutral-100 hover:scale-125 text-neutral-400' />
   }
@@ -138,7 +165,7 @@ useEffect(() => {
 
 
     <div className='hidden  relative overflow-hidden ring-2 ring-zinc-500 sm:block mt-8 rounded-full   hover:scale-110 aspect-square  w-[40%]'>
-    <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={profileImageUrl}/>
+    <Image fill    className='rounded-full p-1' alt='https://static.vecteezy.com/system/resources/previews/001/840/618/original/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg' src={account.profileImageUrl}/>
     </div> 
     <p className='hidden sm:block font-bold mt-2 text-xl font-mono text-neutral-100'>{account?.name}</p>
     <p className='hidden sm:block font-bold mt-1  text-xs font text-neutral-400'>{account?.job}</p>
@@ -225,7 +252,7 @@ useEffect(() => {
 
 
     <section className='sm:grow  sm:w-min   h-screen overflow-hidden'>
-    <div className='h-full  w-full overflow-y-auto'>
+    <div onClick={()=>{setNotifs(false)}} className='h-full  w-full overflow-y-auto'>
      {children}
     </div>
     </section>

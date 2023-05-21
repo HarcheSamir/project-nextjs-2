@@ -14,7 +14,7 @@ const startBackgroundProcess = () => {
       .catch((error) => {
         console.error('Error triggering background process:', error);
       });
-  }, 10 * 1000); // 5 minutes interval (in milliseconds)
+  }, 60 * 1000); // 5 minutes interval (in milliseconds)
 };
 export const metadata = {
   title: 'Esi Sba.',

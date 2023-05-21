@@ -6,17 +6,18 @@ function App() {
   const [latestDecisionId, setLatestDecisionId] = useState(null);
 
   useEffect(() => {
-    const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
-
+   // const ws = new WebSocket('wss://socialbenefitssamir.onrender.com');
+   const ws = new WebSocket('ws://localhost:3006');
     ws.onopen = () => {
       console.log('WebSocket connection established.');
     };
 
     ws.onmessage = (event) => {
       const newDecision = JSON.parse(event.data);
-      console.log(newDecision.data.id)
+      console.log(newDecision.data)
+      if(newDecision.event=='new_decision'){
       setLatestDecisionId(newDecision.data.id);
-      setDecisions((prevDecisions) => [...prevDecisions, newDecision.data]);
+      setDecisions((prevDecisions) => [...prevDecisions, newDecision.data]);}
     };
 
     ws.onclose = () => {
