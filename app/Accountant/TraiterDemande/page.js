@@ -268,7 +268,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
   
     axios
       .post("https://server-social-benefits.vercel.app/validateRequest", {
-      id:id , review : 'rejected' , email:localStorage.getItem('id')  , motif : values.motif
+      id:id , review : 'rejected' ,forr:records[0].requestedBy ,  email:localStorage.getItem('id')  , motif : values.motif
       })
       .then((response) => {
         console.log(response.data);
@@ -316,7 +316,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
           formData.append("pic", values.images[i]);
         }
         formData.append('amount', values.amount);
-     
+        formData.append('forr' , records[0].requestedBy)
           formData.append("id", id);
         
                 axios

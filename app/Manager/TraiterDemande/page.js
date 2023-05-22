@@ -241,7 +241,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
   
     axios
       .post("https://server-social-benefits.vercel.app/reviewRequest", {
-      id:id , review : values.state , email:localStorage.getItem('id') ,amount:values.amount , motif : values.motif
+      id:id , review : values.state ,frrom:records[0].requestedBy ,  email:localStorage.getItem('id') ,amount:values.amount , motif : values.motif
       })
       .then((response) => {
         console.log(response.data);
