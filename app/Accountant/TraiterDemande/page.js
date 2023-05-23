@@ -64,6 +64,7 @@ export default function Page() {
         },
       });
       setRecords(data.records);
+      if(data.records[0].status!='pending'){router.push(`/Accountant/D?id=${encodeURIComponent(id)}`)}
       setLoading(false);
 
     }
@@ -270,10 +271,17 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
       .post("https://server-social-benefits.vercel.app/validateRequest", {
       id:id , review : 'rejected' ,forr:records[0].requestedBy ,  email:localStorage.getItem('id')  , motif : values.motif
       })
-      .then((response) => {
+      .then(async (response) => {
         console.log(response.data);
-        setLoadingButton(false)
-        setDone(true)
+        try {
+          await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:records[0].requestedBy });
+          console.log('Notifications updated successfully');
+          setLoadingButton(false)
+          setDone(true)
+        } catch (error) {
+          console.error('Error updating notifications:', error);
+        }
+      
 
       })
       .catch((error) => {
@@ -325,11 +333,18 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
               "Content-Type": "multipart/form-data",
             },
           })
-          .then((response) => {
+          .then(async (response) => {
             console.log(response.data);
-            setSubmitting(false);
-            setLoadingButton(false)
-            setDone(true)
+            try {
+              await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:records[0].requestedBy });
+              console.log('Notifications updated successfully');
+              setSubmitting(false);
+              setLoadingButton(false)
+              setDone(true)
+            } catch (error) {
+              console.error('Error updating notifications:', error);
+            }
+       
 
           })
           .catch((error) => {

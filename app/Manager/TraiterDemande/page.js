@@ -60,6 +60,7 @@ export default function Page() {
           id : id , 
         },
       });
+      if(data.records[0].manager_review!='pending'){router.push(`/Manager/D?id=${encodeURIComponent(id)}`)}
       setRecords(data.records);
       setLoading(false);
 
@@ -243,10 +244,27 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
       .post("https://server-social-benefits.vercel.app/reviewRequest", {
       id:id , review : values.state ,frrom:records[0].requestedBy ,  email:localStorage.getItem('id') ,amount:values.amount , motif : values.motif
       })
-      .then((response) => {
+      .then(async(response) => {
         console.log(response.data);
-        setLoadingButton(false)
-        setDone(true)
+        if(values.state=='approved'){
+        try {
+          await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:'employee5@com' });
+          console.log('Notifications updated successfully');
+          setLoadingButton(false)
+          setDone(true)
+        } catch (error) {
+          console.error('Error updating notifications:', error);
+        }
+      }else{
+        try {
+          await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:records[0].requestedBy });
+          console.log('Notifications updated successfully');
+          setLoadingButton(false)
+          setDone(true)
+        } catch (error) {
+          console.error('Error updating notifications:', error);
+        }
+      }
 
       })
       .catch((error) => {
