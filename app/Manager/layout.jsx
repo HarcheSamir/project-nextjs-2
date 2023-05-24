@@ -41,6 +41,7 @@ export default function Admin({ children }) {
         if(response.data.account.role!='0011') router.push('/Employee')
         setAccount(response.data.account)
         console.log(response.data.account)
+        setNotifNums(response.data.account.notifications)
         setLoading(false)
      } 
      })
