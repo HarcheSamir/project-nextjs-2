@@ -53,18 +53,7 @@ export default function Page() {
   
     const [profileImageUrl, setProfileImageUrl] = useState(account?.profileImageUrl);
 
-    const handleImageChange = (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
   
-      reader.onloadend = () => {
-        setProfileImageUrl(reader.result);
-      };
-  
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-    };
 
 const [activeTab, setActiveTab] = useState('tab-account-info');
 
@@ -119,20 +108,16 @@ const AccountInfoSection = () => (
   onSubmit={(values) => {
     setIsLoadingButton(true);
     console.log(account.email)  
-    axios.all([
+  
       axios.post(`https://server-social-benefits.vercel.app/accounts/${account.email}`, {
         name: values.name,
         maritalStatus: values.maritalStatus,
         phone: values.phone,
-      }),
-      axios.post(`https://server-social-benefits.vercel.app/updateProfilePicture`, {
-        email: account.email,
-        pic: profileImageUrl,
-      })
-    ])
-      .then(axios.spread((accountResponse, pictureResponse) => {
+      }).then(axios.spread((accountResponse, pictureResponse) => {
         console.log(accountResponse.data);
         console.log(pictureResponse.data);
+        window.location.reload()
+
         setDone(true);
         setIsLoadingButton(false);
       }))
@@ -150,12 +135,13 @@ const AccountInfoSection = () => (
     <div className='h-full relative aspect-square'>
       <label htmlFor='imageUpload'>
         <img
-          className='h-[140px] w-[140px] rounded-full p-1 ring-2 ring-neutral-400 hover:scale-110 cursor-pointer'
+          className='h-[140px] w-[140px] rounded-full p-1 ring-2 hover:ring-blue-500 hover:ring-3 ring-neutral-400 cursor-pointer'
           alt='Profile Image'
           src={profileImageUrl || account?.profileImageUrl}
         />
-        <div className='absolute bg-red-400 top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-          <svg
+        <div className='absolute flex justify-center cursor-pointer items-center hover:scale-110 hover:bg-blue-500 rounded bg-red-400 top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+         <div className='w-full cursor-pointer h-full relative'>  
+           <svg
             className='h-8 w-8 text-white cursor-pointer'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -170,12 +156,42 @@ const AccountInfoSection = () => (
             />
           </svg>
           <input
-            id='imageUpload'
-            type='file'
-            accept='image/*'
-            style={{ display: 'none' }}
-            onChange={handleImageChange}
-          />
+           id="images"
+           name="images"
+           type="file"
+           accept=".png, .jpg, .jpeg"
+           className=' absolute cursor-pointer  inset-0 opacity-0 '
+            onChange={(event) => {
+              setLoadingfetch(true)
+              const files = event.currentTarget.files;
+              const fileArray = Array.from(files);
+             // setFieldValue("images", fileArray);
+             const formData = new FormData();
+
+             for (let i = 0; i < fileArray.length; i++) {
+              formData.append("pic", fileArray[i]);
+            }
+            formData.append('email', account?.email);
+     
+                    axios
+              .post("https://server-social-benefits.vercel.app/updateProfilePicture", formData, {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                },
+              })
+              .then((response) => {
+                console.log(response.data);
+                window.location.reload()
+                setLoadingfetch(false)
+    
+              })
+              .catch((error) => {
+                console.log(error);
+                setSubmitting(false);
+              });
+              }}
+          /></div>
+      
         </div>
       </label>
     </div>
