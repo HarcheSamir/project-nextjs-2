@@ -216,7 +216,7 @@ export default function Page() {
                     console.log(response.data); // Handle the response as needed
                     setIsLoadingButton(false)
                     setModalOpen(false)
-                    window.location.reload()
+                   // window.location.reload()
 
                   } catch (error) {
                     console.error(error);
