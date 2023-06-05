@@ -70,7 +70,7 @@ export default function Page() {
 
     }
     fetchData();
-  }, [id]);
+  }, [id ,router]);
 
   const [activeIndex, setActiveIndex] = useState(0);
 

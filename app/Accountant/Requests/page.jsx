@@ -138,7 +138,7 @@ useEffect(() => {
   }
 
   fetchData();
-}, [query, pagination.currentPage]);
+}, [query, pagination.currentPage ,chartTotal]);
 
 useEffect(() => {
 
@@ -198,7 +198,7 @@ useEffect(() => {
     };
   }
 }
-}, [chartData, chartLabels, chartTotal, chartLoading]);
+}, [chartData, chartLabels, chartTotal, chartLoading ,chartValues]);
 
 
 function handleInputChange(event) {
@@ -224,6 +224,44 @@ if(loading) return (<Loading/>)
   </div>
 
 
+  <div className="md:w-2/3">
+    <div className="mt-[10%]">
+      <div className="" id="chartpie" ref={chartRef}></div>
+      <h1 className="text-center font-bold text-[#0B59A1]">Statistiques des dépenses</h1>
+    </div>
+  </div>
+  <div className="md:w-full">
+    <div className="m-[10%]">
+      <ReactApexChart
+        type="line"
+        series={chartData}
+        options={{
+          chart: {
+            zoom: {
+              enabled: false
+            }
+          },
+          xaxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+          },
+          stroke: {
+            colors: ['#FF3548']
+          },
+          yaxis: {
+            title: {
+              text: 'Dépenses annuelles',
+              style:{
+                color:'#0B59A1',
+                fontWeight:'bold',
+                fontSize:'17',
+                cssClass:'font-bold text-[#0B59A1]'
+              }
+            }
+          }
+        }}
+      />
+    </div>
+  </div>
 </div>
 
 <hr className='mt-10'/>
