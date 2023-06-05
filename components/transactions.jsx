@@ -125,7 +125,7 @@ export default function Transactions() {
             >
               <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-[#2C435A] "> {index + 1 + (pagination.currentPage - 1) * 10} </p>
               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{transaction.t_service_title}</p>
-              <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ${getStatusColor(transaction.t_amount)} ml-2`}>{transaction.t_amount} {"  DA"}</p>
+              <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ${getStatusColor(transaction.t_amount)} ml-2`}>{transaction.t_amount.toLocaleString('en-US', { style: 'decimal' })}.00 {"  DA"}</p>
               <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold } ml-2 text-[#2C435A] `}> {transaction.t_type=='crate' ? 'Division du budget' : "Acceptation d'une demande"}  </p>
               <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ml-2`}>
                 <span className="text-sm text-[#2C435A]">

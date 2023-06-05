@@ -119,7 +119,7 @@ export default function Page() {
           {index+1}
         </td>
         <td className="text-[18px] p-3">{title}</td>
-        <td className="text-[18px] p-3">{amount.toLocaleString('en-US', { style: 'decimal' })} DA</td>
+        <td className="text-[18px] p-3">{amount.toLocaleString('en-US', { style: 'decimal' })}.00 DA</td>
         <td className="text-[18px] p-3 text-center" >{new Date(date_modified).toLocaleString()}</td>
         <td className="p-3">
           <a
@@ -163,7 +163,7 @@ export default function Page() {
         <td className="text-[18px] mt-20 p-3 flex items-center justify-center"> 
         </td>
         <td className="text-[18px] p-3 font-bold text-[#FF3548]">Total des chapitres :</td>
-        <td className="text-[18px] p-3 font-bold"> {calculateSum().toLocaleString('en-US', { style: 'decimal' })} DA</td>
+        <td className="text-[18px] p-3 font-bold"> {calculateSum().toLocaleString('en-US', { style: 'decimal' })}.00 DA</td>
         <td className="p-3">     </td>
       </tr>
             </tbody>
@@ -176,7 +176,7 @@ export default function Page() {
             <thead className="bg-[#F7F9FC] text-[#0B59A1]">
               <tr>
                 <th className="px-16 py-4 text-left text-[18px] w-[55%]">Reste dans la caisse : </th>
-                <th className="py-4 text-center text-[18px]">{budget.toLocaleString('en-US', { style: 'decimal' })} Da</th>
+                <th className="py-4 text-center text-[18px]">{budget.toLocaleString('en-US', { style: 'decimal' })}.00 Da</th>
               </tr>
             </thead>
           </table>
