@@ -140,65 +140,6 @@ useEffect(() => {
   fetchData();
 }, [query, pagination.currentPage ,chartTotal]);
 
-useEffect(() => {
-
- if (!chartLoading){
-  const chartOptions = {
-    series: chartValues,
-    chart: {
-      height: 250,
-      type: 'radialBar',
-    },
-    plotOptions: {
-      radialBar: {
-        hollow: {
-          margin: 0,
-          size: '70%',
-          background: '#fff',
-        },
-        dataLabels: {
-          show: true,
-          name: {
-            show: true,
-            fontSize: '16px',
-            fontWeight: 600,
-            color: undefined,
-            offsetY: -10,
-          },
-          value: {
-            show: true,
-            fontSize: '22px',
-            fontWeight: 600,
-            color: undefined,
-            offsetY: 16,
-            formatter: (val) => {
-              return `${val}%`;
-            },
-          },
-          total: {
-            show: true,
-            label: 'Dépenses',
-            color: '#888',
-            formatter: () => {
-              return chartTotal.toFixed(2);
-            },
-          },
-        },
-      },
-    },
-    labels: chartLabels,
-  };
-
-  if (chartRef.current) {
-    const chart = new ApexCharts(chartRef.current, chartOptions);
-    chart.render();
-
-    return () => {
-      chart.destroy();
-    };
-  }
-}
-}, [chartData, chartLabels, chartTotal, chartLoading ,chartValues]);
 
 
   return (
