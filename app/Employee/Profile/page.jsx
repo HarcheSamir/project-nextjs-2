@@ -9,6 +9,7 @@ import React from 'react'
 import axios from 'axios';
 import EditPass from '@/components/EditPass';
 import Loading from '@/components/Loading.js';
+import Image from 'next/image';
 
 export default function Page() {
   
@@ -135,11 +136,17 @@ const AccountInfoSection = () => (
     <> <div className=' mb-[6%] w-full flex flex-col items-center justify-center '>
     <div className='h-full relative aspect-square'>
       <label htmlFor='imageUpload'>
-        <img
-          className='h-[140px] w-[140px] rounded-full p-1 ring-2 hover:ring-blue-500 hover:ring-3 ring-neutral-400 cursor-pointer'
-          alt='Profile Image'
-          src={profileImageUrl || account?.profileImageUrl}
-        />
+        <div           className='h-[140px] relative p-2 overflow-hidden w-[140px] rounded-full ring-2 hover:ring-blue-500 hover:ring-3 ring-neutral-400 cursor-pointer'
+>
+  <Image 
+  className='p-1 rounded-full'
+  fill 
+  alt='Profile Image'
+  src={profileImageUrl || account?.profileImageUrl}
+  />
+
+        </div>
+     
         <div className='absolute flex justify-center cursor-pointer items-center hover:scale-110 hover:bg-blue-500 rounded bg-red-400 top-1/1 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
          <div className='w-full cursor-pointer h-full relative'>  
            <svg
