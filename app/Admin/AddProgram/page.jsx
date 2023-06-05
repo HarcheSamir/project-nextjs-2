@@ -27,8 +27,9 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         const fetchItems = async () => {
             setLoading(true)
             try{
-          const response = await axios.get('https://server-social-benefits.vercel.app/socialBenefits');
+          const response = await axios.get('https://server-social-benefits.vercel.app/services');
           setItems(response.data);
+          console.log(response.data)
         }catch (error) {
             console.error(error);
           } finally {
@@ -55,7 +56,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 {done &&
-<div className="w-screen absolute top-0 left-0 z-50  bg-blue-900/30  h-screen">
+<div className="w-full absolute top-0 left-0 z-50  bg-blue-900/30  h-screen">
     <div className="h-screen  relative w-screen ">
     <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>
         <div className='h-3/5 flex items-center justify-center bg-green-500 w-full top-0'>
@@ -77,18 +78,20 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
         <div className="border-[3px] w-full  max-w-[50rem] pb-20 sm:pb-auto mb-20 relative rounded p-8 border-neutral-300 ">
         <p 
-      className=" text-center text-4xl font-bold text-[#0B59A1] mt-8 "
+      className=" text-center text-4xl mb-12 font-bold text-[#0B59A1] mt-8 "
      >New Programs</p>
    <Formik 
     initialValues={{
-        images: [],description :  '' , coverage:'', needed_proofs:'' ,title:''
+        images: [],description :  '' , coverage:'', needed_proofs:'' ,title:'' ,about:''
       }}
       
       validationSchema={Yup.object({
         title : Yup.string().required(),
         description: Yup.string().required(),
         coverage:Yup.string().required() ,
-        needed_proofs:Yup.string().required()
+        needed_proofs:Yup.string().required() ,
+        about: Yup.string().required()
+
 
       })}
       onSubmit={(values, { setSubmitting }) => {
@@ -97,6 +100,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         formData.append('title', values.title);
         formData.append('description', values.description);
         formData.append('coverage', values.coverage);
+        formData.append("service", selectedItem.id);
         formData.append('needed_proofs', values.needed_proofs);
         axios
           .post("https://server-social-benefits.vercel.app/addSocialBenefit", formData, {
@@ -136,7 +140,28 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 
 
+<div className="col-span-2 relative ">
+  <Field as="select" name="about" 
+   onChange={(event) => {
+    handleChange(event);
+    setSelectedItem(items.find((item) => item.title === event.target.value))
+    console.log(selectedItem)
+     }}
+   onBlur={handleBlur} value={values.about} className="block appearance-none w-full text-neutral-400 focus:text-black  duration-500  bg-white border border-gray-400 hover:border-blue-500 py-4 pl-2 rounded   focus:outline-none focus:shadow-outline">
+    <option  value="">Select The Concerned Chapter</option>
+  
+    {items.map((item ,index) => (
+    <option key={index}>
+      {item.title}
+    </option>
+  ))}
+  </Field>
+  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+    <svg className="fill-current text-red-500 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+  </div>
+  <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="about" component="span" />
 
+      </div>
 
 
 <div className="flex flex-col  col-span-2  ml-2">

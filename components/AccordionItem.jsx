@@ -7,7 +7,7 @@ export default function AccordionItem({ title, description, coverage, needed_pro
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border-b px-4  w-screen max-w-[65rem]">
+    <div className="border-b px-4  w-full max-w-[65rem]">
     <div
       className="w-full py-2 text-left focus:outline-none"
     

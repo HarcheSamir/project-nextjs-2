@@ -173,7 +173,7 @@ export default function Page() {
 
    <Formik 
     initialValues={{
-        images: [],amount :  undefined
+        images: [],amount : undefined
       }}
       
       validationSchema={Yup.object({
