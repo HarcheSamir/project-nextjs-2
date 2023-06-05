@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import React from 'react'
 import axios from 'axios';
 import EditPass from '@/components/EditPass';
+import Loading from '@/components/Loading.js';
 
 export default function Page() {
   
@@ -307,7 +308,7 @@ const AccountInfoSection = () => (
 );
 
 
-if(Loadingfetch) return (<p>Loading...</p>)
+if(Loadingfetch) return (<Loading/>)
 
     ////////actual page
   return (

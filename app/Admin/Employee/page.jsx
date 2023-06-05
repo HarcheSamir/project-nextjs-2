@@ -10,6 +10,7 @@ import React from 'react'
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import Loading from '@/components/Loading.js';
 
 function decimalToBinary(decimal) {
     // Convert the decimal number to its binary representation
@@ -127,7 +128,7 @@ export default function Page() {
 
 
 
-if(Loadingfetch) return (<p>Loading...</p>)
+if(Loadingfetch) return (<Loading/>)
 
     ////////actual page
   return (

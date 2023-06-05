@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { AiOutlineMenu , AiOutlineClose, AiFillHome} from 'react-icons/ai';
 import {BsFillPeopleFill ,BsFillCollectionFill ,BsStars, BsStar } from 'react-icons/bs'
 import {GoSignOut ,GoSettings} from 'react-icons/go'
+import Loading from '@/components/Loading.js';
 
 
 export default function Admin({ children }) {
@@ -35,7 +36,7 @@ export default function Admin({ children }) {
 
 
 ////////loading state 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Loading/>
 
   return (
    

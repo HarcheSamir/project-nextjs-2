@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import {RiImageAddFill} from 'react-icons/ri'
 import { IoMdCloseCircle } from "react-icons/io";
+import Loading from '@/components/Loading.js';
 
 import { useRouter } from 'next/navigation';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
@@ -103,7 +104,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
   
  return (
   <div className='flex flex-col items-center w-full justify-center'>

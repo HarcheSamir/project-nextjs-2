@@ -6,6 +6,7 @@ import { FiSearch } from 'react-icons/fi';
 import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading.js';
 
 function getStatusColor(status) {
   switch (status) {
@@ -78,7 +79,7 @@ export default function Page() {
     }));
   }
 
-if(Loadingfetch) return (<p>Loading...</p>)
+if(Loadingfetch) return (<Loading/>)
   return (
     <div className="w-[95%] flex flex-col ">
 

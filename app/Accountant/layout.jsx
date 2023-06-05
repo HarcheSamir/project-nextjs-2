@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Loading from '@/components/Loading.js';
+
 import Link from 'next/link';
 import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd ,AiFillHome } from 'react-icons/ai';
 import {BsFillCollectionFill ,BsStars, BsStar , BsFillPeopleFill} from 'react-icons/bs'
@@ -101,7 +103,7 @@ const handleRefresh = () => {
 
 
 ////////loading state 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Loading/>
 
   return (
    

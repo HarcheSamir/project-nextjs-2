@@ -12,6 +12,7 @@ import {GoSignOut ,GoSettings} from 'react-icons/go'
 import { BsBellFill } from 'react-icons/bs';
 import { TbFileX ,TbFileCheck} from 'react-icons/tb'
 import { MdCollectionsBookmark } from 'react-icons/md';
+import Loading from '@/components/Loading.js';
 
 export default function Admin({ children }) {
     const[nav , setNav] = useState(false)
@@ -121,7 +122,7 @@ const handleRefresh = () => {
 
 
 ////////loading state 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Loading/>
 
   return (
    

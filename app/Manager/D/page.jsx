@@ -14,6 +14,8 @@ import {AiFillFileImage} from 'react-icons/ai'
 import { AiOutlineCheckCircle,  AiOutlineCheck } from "react-icons/ai";
 import Link from 'next/link';
 import 'react-icons'
+import Loading from '@/components/Loading.js';
+
 function getStatusColor(status) {
     switch (status) {
       case 'pending':
@@ -100,7 +102,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
   
  return (
   <div className='flex flex-col items-center w-full justify-center'>

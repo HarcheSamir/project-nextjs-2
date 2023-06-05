@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
 import { useSearchParams } from 'next/navigation';
 import Image from "next/image";
+import Loading from '@/components/Loading.js';
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -63,7 +64,7 @@ export default function Page() {
     }));
   }
 
-if(Loadingfetch) return (<p>Loading...</p>)
+if(Loadingfetch) return (<Loading/>)
   return (
     <div className="w-[95%] flex flex-col ">
 

@@ -3,6 +3,7 @@ import { useEffect ,useState } from 'react';
 import React from 'react';
 import '../../globals.css'
 import 'react-icons'
+import Loading from '@/components/Loading.js';
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import Image from 'next/image';
@@ -82,7 +83,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
  return (
 
 

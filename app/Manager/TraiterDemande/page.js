@@ -3,6 +3,8 @@ import React, { useState ,useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import {User} from '@/components/User'
 import '../../globals.css'
+import Loading from '@/components/Loading.js';
+
 import { piecejointes } from '@/components/piecejointes';
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
@@ -100,7 +102,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
   
  return (
   <div className='flex flex-col items-center w-full justify-center'>

@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
 import Slider from '@/components/Slider'
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading.js';
 
 
 
@@ -135,7 +136,7 @@ export default function Page() {
   };
 
   
-  if(loading||loading2) return(<p>loading..</p>)
+  if(loading||loading2) return(<Loading/>)
 
 
   return (

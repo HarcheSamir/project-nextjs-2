@@ -6,6 +6,8 @@ import 'react-icons'
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import Image from 'next/image';
+import Loading from '@/components/Loading.js';
+
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
 function getStatusColor(status) {
@@ -78,7 +80,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
  return (
 
 

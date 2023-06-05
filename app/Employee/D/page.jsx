@@ -6,6 +6,8 @@ import 'react-icons'
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import Image from 'next/image';
+import Loading from '@/components/Loading.js';
+
 import { IoIosArrowDropdown } from 'react-icons/io';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
@@ -84,7 +86,7 @@ console.log(data.records)
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
  return (
 
 

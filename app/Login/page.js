@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
+import Loading from '@/components/Loading.js';
 
 var response
 
@@ -69,7 +70,7 @@ export default  function Page() {
 
 
 ///////////loading state
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loading/>
 
 
 ////////////////actual page

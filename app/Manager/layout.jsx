@@ -12,6 +12,7 @@ import {GoSignOut ,GoSettings} from 'react-icons/go'
 import { MdCollectionsBookmark } from 'react-icons/md';
 import { BsBellFill } from 'react-icons/bs';
 import { AiOutlineFileAdd } from 'react-icons/ai';
+import Loading from '@/components/Loading.js';
 
 
 
@@ -107,7 +108,7 @@ const handleRefresh = () => {
 
 
 ////////loading state 
-    if (isLoading) return <p>Loading...</p>
+    if (isLoading) return <Loading/>
 
   return (
    

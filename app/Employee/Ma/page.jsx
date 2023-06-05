@@ -8,6 +8,7 @@ import axios  from 'axios';
 import Image from 'next/image';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading.js';
 
 
 export default function Page() {
@@ -81,7 +82,7 @@ export default function Page() {
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
  return (
 
 

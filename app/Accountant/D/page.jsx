@@ -5,6 +5,8 @@ import '../../globals.css'
 import 'react-icons'
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
+import Loading from '@/components/Loading.js';
+
 import Image from 'next/image';
 import { IoIosArrowDropdown } from 'react-icons/io';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
@@ -84,7 +86,7 @@ console.log(data.records)
 
 
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <Loading/>
  return (
 
 

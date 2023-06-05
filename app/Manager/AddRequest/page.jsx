@@ -9,6 +9,7 @@ import { AiOutlineCheckCircle,  AiOutlineCheck } from "react-icons/ai";
 import axios from "axios";
 import { FcRemoveImage} from "react-icons/fc";
 import Link from "next/link";
+import Loading from '@/components/Loading.js';
 
 
 export default function Page() {
@@ -44,7 +45,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
     
 
 
-  if(loading) return   <div>Loading...</div>
+  if(loading) return   <Loading/>
 
   return (
 
