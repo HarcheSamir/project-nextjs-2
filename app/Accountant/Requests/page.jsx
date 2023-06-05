@@ -224,44 +224,6 @@ if(loading) return (<Loading/>)
   </div>
 
 
-  <div className="md:w-2/3">
-    <div className="mt-[10%]">
-      <div className="" id="chartpie" ref={chartRef}></div>
-      <h1 className="text-center font-bold text-[#0B59A1]">Statistiques des dépenses</h1>
-    </div>
-  </div>
-  <div className="md:w-full">
-    <div className="m-[10%]">
-      <ReactApexChart
-        type="line"
-        series={chartData}
-        options={{
-          chart: {
-            zoom: {
-              enabled: false
-            }
-          },
-          xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-          },
-          stroke: {
-            colors: ['#FF3548']
-          },
-          yaxis: {
-            title: {
-              text: 'Dépenses annuelles',
-              style:{
-                color:'#0B59A1',
-                fontWeight:'bold',
-                fontSize:'17',
-                cssClass:'font-bold text-[#0B59A1]'
-              }
-            }
-          }
-        }}
-      />
-    </div>
-  </div>
 </div>
 
 <hr className='mt-10'/>
@@ -356,7 +318,7 @@ if(loading) return (<Loading/>)
                 month: 'long',
                 day: 'numeric'
               })}</span> </p>
-               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2"></p>
+               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{parseInt(request.amount).toLocaleString('en-US', { style: 'decimal' })}.00 {"  DA"}</p>
               <div className="md:w-[30%] md:flex flex-row hidden items-center justify-start cursor-default text-sm font-bold text-[#2C435A] ml-2"><div className="h-10 aspect-square relative"><Image fill alt='' src={request.profileImageUrl} className="rounded-full flex-none ring-[2px] ring-zinc-500 ring-offset-2 mr-4" /></div><p className="grow ml-4">{request.name}</p></div>
             </div>
           ))}
