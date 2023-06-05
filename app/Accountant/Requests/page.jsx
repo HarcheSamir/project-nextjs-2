@@ -201,16 +201,6 @@ useEffect(() => {
 }, [chartData, chartLabels, chartTotal, chartLoading ,chartValues]);
 
 
-function handleInputChange(event) {
-  setQuery(event.target.value);
-}
-
-function handlePageClick(data) {
-  setPagination((prevPagination) => ({
-    ...prevPagination,
-    currentPage: data.selected + 1,
-  }));
-}
   return (
 
     <div className='h-full w-full'>
