@@ -356,7 +356,7 @@ if(loading) return (<Loading/>)
                 month: 'long',
                 day: 'numeric'
               })}</span> </p>
-               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{parseInt(request.amount).toLocaleString('en-US', { style: 'decimal' })}.00 {"  DA"}</p>
+               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2"></p>
               <div className="md:w-[30%] md:flex flex-row hidden items-center justify-start cursor-default text-sm font-bold text-[#2C435A] ml-2"><div className="h-10 aspect-square relative"><Image fill alt='' src={request.profileImageUrl} className="rounded-full flex-none ring-[2px] ring-zinc-500 ring-offset-2 mr-4" /></div><p className="grow ml-4">{request.name}</p></div>
             </div>
           ))}
