@@ -15,29 +15,8 @@ import Transactions from '@/components/transactions';
 
 export default function Page() {
 
-const [activeTab, setActiveTab] = useState('tab-demandes');
 
-function toggleTab(event, tabId) {
 
-  setActiveTab(tabId);
-
-  const tabButtons = document.querySelectorAll('[role="tab"]');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabContents.forEach((tabContent) => {
-    tabContent.classList.add('hidden');
-  });
-
-  tabButtons.forEach((tabButton) => {
-    tabButton.setAttribute('aria-selected', 'false');
-  });
-
-  const selectedTab = document.getElementById(tabId);
-  if (selectedTab) {
-    selectedTab.classList.remove('hidden');
-  }
-  event.currentTarget.setAttribute('aria-selected', 'true');
-}
 
 function getStatusColor(status) {
   switch (status) {
@@ -140,6 +119,65 @@ useEffect(() => {
   fetchData();
 }, [query, pagination.currentPage ,chartTotal]);
 
+useEffect(() => {
+
+ if (!chartLoading){
+  const chartOptions = {
+    series: chartValues,
+    chart: {
+      height: 250,
+      type: 'radialBar',
+    },
+    plotOptions: {
+      radialBar: {
+        hollow: {
+          margin: 0,
+          size: '70%',
+          background: '#fff',
+        },
+        dataLabels: {
+          show: true,
+          name: {
+            show: true,
+            fontSize: '16px',
+            fontWeight: 600,
+            color: undefined,
+            offsetY: -10,
+          },
+          value: {
+            show: true,
+            fontSize: '22px',
+            fontWeight: 600,
+            color: undefined,
+            offsetY: 16,
+            formatter: (val) => {
+              return `${val}%`;
+            },
+          },
+          total: {
+            show: true,
+            label: 'Dépenses',
+            color: '#888',
+            formatter: () => {
+              return chartTotal.toFixed(2);
+            },
+          },
+        },
+      },
+    },
+    labels: chartLabels,
+  };
+
+  if (chartRef.current) {
+    const chart = new ApexCharts(chartRef.current, chartOptions);
+    chart.render();
+
+    return () => {
+      chart.destroy();
+    };
+  }
+}
+}, [chartData, chartLabels, chartTotal, chartLoading ,chartValues]);
 
 
 function handleInputChange(event) {
@@ -212,32 +250,24 @@ if(loading) return (<Loading/>)
 <ul className=" flex list-none flex-row flex-wrap border-b-0 pl-0" role="tablist">
         <li
           role="presentation"
-          className={`flex-auto text-center ${activeTab === 'tab-demandes' ? 'border-b-2 border-[#0B59A1]' : 'border-b-2 border-gray-300'}`}
         >
           <button
             onClick={(event) => toggleTab(event, 'tab-demandes')}
-            className={`text-[20px] font-Bahnschrift font-bold p-[3%] ${
-              activeTab === 'tab-demandes' ? 'text-[#0B59A1]' : 'text-gray-500 hover:text-gray-700'
-            }`}
+          
             role="tab"
             aria-controls="tab-demandes"
-            aria-selected={activeTab === 'tab-demandes'}
           >
             Archive des demandes
           </button>
         </li>
         <li
           role="presentation"
-          className={`flex-auto text-center ${activeTab === 'tab-transaction' ? 'border-b-2 border-[#0B59A1]' : 'border-b-2 border-gray-300'}`}
         >
           <button
             onClick={(event) => toggleTab(event, 'tab-transaction')}
-            className={`text-[20px] font-Bahnschrift font-bold p-[3%] ${
-              activeTab === 'tab-transaction' ? 'text-[#0B59A1]' : 'text-gray-500 hover:text-gray-700'
-            }`}
+        
             role="tab"
             aria-controls="tab-transaction"
-            aria-selected={activeTab === 'tab-transaction'}
           >
             Archive des transactions
           </button>
@@ -254,9 +284,7 @@ if(loading) return (<Loading/>)
 
 
 <div
-    className={`${
-      activeTab === 'tab-demandes' ? 'block' : 'hidden'
-    } opacity-100 transition-opacity duration-150 ease-linear`}
+   
     id="tab-demandes"
     role="tabpanel"
     aria-labelledby="tab-demandes"
@@ -330,9 +358,7 @@ if(loading) return (<Loading/>)
         </div>
       </div>
 
-<div className={`${
-          activeTab === 'tab-transaction' ? 'block' : 'hidden'
-        } opacity-100 transition-opacity duration-150 ease-linear px-10`}
+<div 
         id="tab-transaction"
         role="tabpanel"
         aria-labelledby="tab-transaction" >
