@@ -17,27 +17,7 @@ export default function Page() {
 
 const [activeTab, setActiveTab] = useState('tab-demandes');
 
-function toggleTab(event, tabId) {
 
-  setActiveTab(tabId);
-
-  const tabButtons = document.querySelectorAll('[role="tab"]');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabContents.forEach((tabContent) => {
-    tabContent.classList.add('hidden');
-  });
-
-  tabButtons.forEach((tabButton) => {
-    tabButton.setAttribute('aria-selected', 'false');
-  });
-
-  const selectedTab = document.getElementById(tabId);
-  if (selectedTab) {
-    selectedTab.classList.remove('hidden');
-  }
-  event.currentTarget.setAttribute('aria-selected', 'true');
-}
 
 function getStatusColor(status) {
   switch (status) {
