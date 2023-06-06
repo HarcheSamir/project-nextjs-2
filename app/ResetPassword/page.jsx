@@ -69,8 +69,8 @@ export default  function Nouveau_mp() {
           token : token
           })
         .then(response => {
+          setDone(true)
           console.log(response.data);
-          router.push('/Login')
           setIsLoadingButton(false)
         })
         .catch(error => {
