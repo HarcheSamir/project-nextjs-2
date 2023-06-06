@@ -65,8 +65,9 @@ export default function AccordionItem_Employee({ title, description, coverage, n
       </div>
 
       {showModal && (
-        <div className="z-50 fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white text-[20px] w-[70%] flex flex-col p-10 rounded-[10px]">
+       <div className="fixed inset-0 z-50 rounded  flex justify-center overflow-hidden items-center bg-gray-800 bg-opacity-50">
+       <div className="overflow-hidden w-[70%] max-h-[30rem] h-full   rounded"> 
+         <div className="bg-white  text-[20px]  max-h-[30rem] overflow-y-scroll  flex flex-col p-10  rounded-[10px]">          <div className="bg-white text-[20px] w-[70%] flex flex-col p-10 rounded-[10px]">
             <p className="text-xl cursor-pointer w-[90%] font-bold text-[#2C435A]" onClick={handleServiceClick}>
               {title} :
             </p>
@@ -109,6 +110,8 @@ export default function AccordionItem_Employee({ title, description, coverage, n
               </button>
             </div>
           </div>
+        </div>
+        </div>
         </div>
       )}
     </div>
