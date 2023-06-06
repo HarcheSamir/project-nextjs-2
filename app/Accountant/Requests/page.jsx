@@ -1,7 +1,7 @@
 
 'use client'
 import { useRouter } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect} from 'react'
 import React from 'react'
 import axios from 'axios';
 import ReactPaginate from "react-paginate";
@@ -14,9 +14,6 @@ import Transactions from '@/components/transactions';
 
 
 export default function Page() {
-
-const [activeTab, setActiveTab] = useState('tab-demandes');
-
 
 
 function getStatusColor(status) {
