@@ -116,9 +116,10 @@ const AccountInfoSection = () => (
         maritalStatus: values.maritalStatus,
         phone: values.phone,
       }).then(axios.spread((accountResponse, pictureResponse) => {
+        window.location.reload()
+
         console.log(accountResponse.data);
         console.log(pictureResponse.data);
-        window.location.reload()
 
         setDone(true);
         setIsLoadingButton(false);

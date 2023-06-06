@@ -8,7 +8,7 @@ import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
 import Image from "next/image";
 import dynamic from 'next/dynamic';
-import ApexCharts from 'apexcharts';
+const ApexCharts = dynamic(() => import('apexcharts'), { ssr: false });
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import Loading from '@/components/Loading.js';
 import Transactions from '@/components/transactions';
@@ -193,11 +193,10 @@ export default function Page() {
   
     if (chartRef.current) {
       const chart = new ApexCharts(chartRef.current, chartOptions);
-      chart.render();
-      
+      //chart.render()
   
       return () => {
-        chart.destroy();
+        //chart.destroy();
       };
     }
   }
