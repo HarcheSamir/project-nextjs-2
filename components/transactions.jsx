@@ -1,73 +1,78 @@
 'use client'
 import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import { FiSearch } from "react-icons/fi"; 
+import { FiSearch } from "react-icons/fi";
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import Modal from 'react-modal'; 
-
+import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import Link from "next/link";
 function getStatusColor(amount) {
-  switch (amount > 0 ) {
-    case (true):
-      return "text-green-500"; 
-    case (false ):
-      return "text-red-500"; 
+  switch (amount > 0) {
+    case true:
+      return "text-green-500";
+    case false:
+      return "text-red-500";
     default:
       return "text-[#2C435A]";
   }
 }
 
 export default function Transactions() {
+  function handleOpenModal(transaction) {
+    setSelectedTransaction(transaction);
+    setShowModal(true)
+    console.log(transaction);
+    if (transaction.t_type === 'crate') {
+      setIsCrate(true);
+      setIsRequest(false);
+      console.log('crate');
+    } else if (transaction.t_type === 'request') {
+      setIsCrate(false);
+      setIsRequest(true);
+      console.log('request');
+    }
+  }
 
-    function handleOpenModal(transaction) {
-        setSelectedTransaction(transaction);
-        console.log(transaction)
-        if (transaction.t_type === 'crate') {
-          setIsCrate(true);
-          setIsRequest(false);
-          console.log('crate')
-        } else if (transaction.t_type === 'request') {
-          setIsCrate(false);
-          setIsRequest(true);
-          console.log('request')
-        }
-      }
-    
-      function handleCloseModal() {
-        setSelectedTransaction(null);
-        setIsCrate(false);
-        setIsRequest(false);
-      }
-    
+  function handleCloseModal() {
+    setSelectedTransaction(null);
+    setIsCrate(false);
+    setIsRequest(false);
+    setShowModal(false);
+  }
 
-    const [query, setQuery] = useState("");
-    const [pagination, setPagination] = useState({ currentPage: 1 });
-    const [loading, setLoading] = useState(false);
-    const [isRequest, setIsRequest] = useState(false);
-    const [isCrate, setIsCrate] = useState(false);
-    const [Records, setRecords] = useState([]);
-    const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [query, setQuery] = useState("");
+  const [pagination, setPagination] = useState({ currentPage: 1 });
+  const [loading, setLoading] = useState(false);
+  const [isRequest, setIsRequest] = useState(false);
+  const [isCrate, setIsCrate] = useState(false);
+  const [Records, setRecords] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+ 
 
-    useEffect(() => {
-        async function fetchData() {
-          setLoading(true);
-          const { data } = await axios.get("https://server-social-benefits.vercel.app/transactions", {
-            params: {
-                page: pagination.currentPage || 1,
-                limit: 10,
-              },
-          });
-          console.log(data);
-          setPagination(data.infos);
-          setRecords(data.records);
-          setLoading(false);
-      }
-      
-        fetchData();
-      }, [pagination.currentPage]);
-      
 
-   function handleInputChange(event) {
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      const { data } = await axios.get("https://server-social-benefits.vercel.app/transactions", {
+        params: {
+          page: pagination.currentPage || 1,
+          limit: 10,
+        },
+      });
+      console.log('here are the transactions',data);
+      setPagination(data.infos);
+      setRecords(data.records);
+      setLoading(false);
+    }
+
+    fetchData();
+  }, [pagination.currentPage]);
+
+  function handleInputChange(event) {
     setQuery(event.target.value);
   }
 
@@ -79,10 +84,9 @@ export default function Transactions() {
   }
 
   const router = useRouter();
-  
   return (
     <div className="w-[95%] ">
-
+{/*
 <div className="justify-center flex items-center">
 
   <div className="justify-center h-full w-[80%] max-w-[50rem] mt-[2%]">
@@ -99,15 +103,16 @@ export default function Transactions() {
       <FiSearch className="h-5 w-5 text-gray-400" />
     </div>
   </div>
-</div>
+</div> */}
 
 
       <div className="flex bg-white/95 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px] border-p-8 border-[#2C435A] w-full sticky ">
         <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold  text-[#2C435A] ">#</p>
         <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Service</p>
         <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Montant</p>
-        <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Type</p>
+        <p className="md:w-[40%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Type</p>
         <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Date</p>
+        <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold  text-[#2C435A]  flex justify-center items-center ml-2">Preuve</p>
       </div>
 
       <div className="flex flex-col w-full  ">
@@ -125,8 +130,8 @@ export default function Transactions() {
             >
               <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-[#2C435A] "> {index + 1 + (pagination.currentPage - 1) * 10} </p>
               <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{transaction.t_service_title}</p>
-              <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ${getStatusColor(transaction.t_amount)} ml-2`}>{transaction.t_amount.toLocaleString('en-US', { style: 'decimal' })}.00 {"  DA"}</p>
-              <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold } ml-2 text-[#2C435A] `}> {transaction.t_type=='crate' ? 'Division du budget' : "Acceptation d'une demande"}  </p>
+              <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ${getStatusColor(transaction.t_amount)} ml-2`}>{transaction.t_amount > 0 ?  `+${transaction.t_amount}` : transaction.t_amount} {"  DA"}</p>
+              <p className={`md:w-[40%] w-[50%] cursor-default text-sm font-bold } ml-2 text-[#2C435A] `}> {transaction.t_type=='crate' ? 'Division du budget' : "Acceptation d'une demande"}  </p>
               <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ml-2`}>
                 <span className="text-sm text-[#2C435A]">
                 {new Date(transaction.t_createdAt).toLocaleString("fr-FR", {
@@ -135,13 +140,22 @@ export default function Transactions() {
                day: "numeric",
                hour: "numeric",
                 minute: "numeric"
-                 })}                </span>
+                 })}                
+                 </span>
               </p>
+              <p className={`md:w-[30%] cursor-pointer flex items-center justify-center  ml-2`}>
+  {transaction.t_type === 'crate' ? (<span className="text-gray-400 text-italic" >"Pas de preuve"</span>
+  ) : ( <> <Link legacyBehavior href={transaction.t_image_url} passHref>
+    <a target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon 
+            
+            icon={faImage} className="w-6 h-6 inline-block align-middle mr-1 text-red-400" /></a></Link> </>
+  )}
+</p>
             </div>
           ))}
       </div>
 
-      <div className="w-[95%] mt-10 flex flex-col ">
+      <div title>
         <ReactPaginate
           pageCount={pagination.totalPages || 1}
           onPageChange={handlePageClick}
@@ -161,24 +175,10 @@ export default function Transactions() {
         />
       </div>
 
-      
-        <Modal className="h-500 w-500 z-999" isOpen={selectedTransaction !== null} onClose={handleCloseModal}>
-          {isCrate && (
-            <>
-              <h2>Crate Information</h2>
-              <p>{selectedTransaction.t_service_title}</p>
-              <p>{selectedTransaction.t_amount}</p>
-            </>
-          )}
+   
 
-          {isRequest && (
-            <>
-              <h2>Request Information</h2>
-              <p>{selectedTransaction.t_service_title}</p>
-              <p>{selectedTransaction.t_amount}</p>
-            </>
-          )}
-        </Modal>
+
+
       
 
     </div>

@@ -268,7 +268,7 @@ export default function Page() {
   
   <hr className='mt-10'/>
   
-      <div className=' justify-center  w-full flex flex-col  '>
+      <div className=' justify-center mt-12 w-full flex flex-col  '>
   
   <ul className=" flex list-none flex-row flex-wrap border-b-0 pl-0" role="tablist">
           <li
@@ -315,7 +315,7 @@ export default function Page() {
   
   
   <div
-      className={`${
+      className={` ${
         activeTab === 'tab-demandes' ? 'block' : 'hidden'
       } opacity-100 transition-opacity duration-150 ease-linear`}
       id="tab-demandes"
