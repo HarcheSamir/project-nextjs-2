@@ -8,7 +8,6 @@ export default function AccordionItem_Employee({ title, description, coverage, n
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false); 
   const router = useRouter();
-
   const handleServiceClick = () => {
     setShowModal(true);
     console.log("selected service : ", title)
@@ -27,7 +26,7 @@ export default function AccordionItem_Employee({ title, description, coverage, n
   };
 
   return (
-    <div className="border-b px-4 w-screen max-w-[65rem]">
+    <div className="border-b px-4 w-full max-w-[65rem]">
       <div className="w-full py-2 text-left focus:outline-none">
         <div className="flex w-full items-center justify-between">
           <p className="text-xl cursor-pointer w-[50%] truncate  text-[#2C435A]" onClick={handleServiceClick}>

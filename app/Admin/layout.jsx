@@ -42,7 +42,7 @@ export default function Admin({ children }) {
    
     <section className='flex flex-col    w-full sm:flex-row'>
 
-    <div className='  sm:flex-none z-20 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-hidden flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
+<div className='  sm:flex-none z-50 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-visible flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
     <div className="flex items-center flex-col w-full">
 
 
@@ -94,7 +94,8 @@ export default function Admin({ children }) {
 
 
 
-    <div className='hidden sm:block mt-8 rounded-full border-2 border-neutral-500 hover:scale-110 aspect-square p-1 w-[30%]'><div className='relative  w-full h-full  rounded-full bg-white '><Image fill className='p-2' alt='/' src='https://www.esi-sba.dz/fr/wp-content/uploads/2020/10/Logo-Complet-ESI-SBA-200mm-x-200mm_couleur-1024x1024.png'/></div></div> 
+    <div className='hidden sm:block mt-8 rounded-full border-2 border-neutral-500 hover:scale-110 aspect-square p-1 w-[30%]'>
+      <div className='relative  w-full h-full  rounded-full bg-white '><Image fill className='p-2' alt='/' src='https://www.esi-sba.dz/fr/wp-content/uploads/2020/10/Logo-Complet-ESI-SBA-200mm-x-200mm_couleur-1024x1024.png'/></div></div> 
     <p className='hidden sm:block font-bold mt-2 text-xs font text-neutral-200'>Administration</p>
   
  
