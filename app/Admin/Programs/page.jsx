@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import AccordionItem from '@/components/AccordionItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
-
+import { IoIosAddCircle } from 'react-icons/io';
+import Link from 'next/link';
 export default function Programs() {
   const [items, setItems] = useState([]);
   const [chapters, setChapters] = useState([]);
@@ -26,8 +27,10 @@ export default function Programs() {
   }, [items]);
 
   return (
-    <div className='w-full  flex justify-center items-center'> 
-    <div className="divide-y  mb-20 mt-12">
+    <div className='w-full   flex justify-center items-center'> 
+  <Link href={'/Admin/AddProgram'}> <IoIosAddCircle className='w-20 h-20 absolute bottom-10 cursor-pointer right-20 text-green-600'/>
+   </Link>  
+   <div className="divide-y  mb-20 mt-12">
       {chapters.map((chapter, index) => (
         <div key={index}>
           <p className="text-xl font-bold mt-10 mb-6 text-[#0B59A1]">
