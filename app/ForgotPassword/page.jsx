@@ -2,10 +2,18 @@
 import Image from 'next/image'
 import Navbar from '@/components/NavbarOfLogin'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { useState } from 'react';
-export default  function Envoyer_lien() {
-    const [isLoadingButton, setIsLoadingButton] = useState(false);
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+export default  function Page() {
+  const router = useRouter();
+  const [error, setError] = useState('');
 
+    const [isLoadingButton, setIsLoadingButton] = useState(false);
+    const validationSchema = Yup.object().shape({
+      email: Yup.string().email('Invalid email address').required('Email is required'),
+    });
 
   return (
   
@@ -17,14 +25,33 @@ export default  function Envoyer_lien() {
         <p style={{ fontFamily: 'Bahnschrift' }} className=' text-[38px] text-blue-800 font-bold  sm:-translate-x-[20%] -translate-x-[30%] font-mono  w-full text-center ml-[20%]'>Ou devons-nous envoyer le lien de confirmation?</p>
     <p className='mt- mb-4 text-[20px] font-bahnschrift  text-blue-900 font-bold sm:-translate-x-[20%] -translate-x-[30%]   w-full text-center ml-[20%]'>Entrez l'adresse e-mail associé à votre compte pour modifier votre mot de passe</p>
 
-            <Formik  
-  
-
+ <Formik  
+   initialValues={{
+    email: '',
+  }}
+  validationSchema={validationSchema}
+  onSubmit ={ (values)=>{
+    setIsLoadingButton(true) ;
+    axios.post('https://server-social-benefits.vercel.app/forgotPassword', {
+    email: values.email,
+  })
+  .then(response => {
+    console.log(response.data)
+   setIsLoadingButton(false)
+   router.push('/Sent')
+    
+  })
+  .catch(error => {
+    console.log(error?.response?.data.error);
+    setError(error?.response?.data.error)
+    setIsLoadingButton(false)
+  });
+  } }
 >
   {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
     
     <Form id='my-form'    className='w-full  flex items-center flex-col justify-center'>
-      <p className='text-red-600 font-bold text-sm mt-2 animate-pulse animate-bounce '></p>
+      <p className='text-red-600 font-bold text-sm mt-2 animate-pulse animate-bounce '>{error}</p>
 
       <div className="relative mt-2 w-full mb-8">
         <Field

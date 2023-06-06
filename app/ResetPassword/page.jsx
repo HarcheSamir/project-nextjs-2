@@ -4,14 +4,27 @@ import Navbar from '@/components/NavbarOfLogin'
 import axios from 'axios';
 import { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-
-
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import * as Yup from 'yup';
 
 
 export default  function Nouveau_mp() {
   const [isLoadingButton, setIsLoadingButton] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [error, setError] = useState('');
 
-
+  const token = searchParams.get('token');
+  const email = searchParams.get('email');
+  const validationSchema = Yup.object().shape({
+    newPassword: Yup.string()
+      .min(6, 'Password must be at least 6 characters.')
+      .required('Please enter a new password.'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('newPassword'), null], 'Passwords must match.')
+      .required('Passwords must match.'),
+  });
   return (
   <div  className='w-screen h-screen flex flex-col'>
     <Navbar/>
@@ -19,33 +32,62 @@ export default  function Nouveau_mp() {
     <div className='h-full  sm:row-span-1 row-span-2 w-full relative    '>
         <div className='sm:w-[75%] w-[80%] flex flex-col bottom-0 justify-between pb-[35%] sm:pb-[20%]   absolute top-[10%] sm:top-1/4 left-1/2 transform -translate-x-1/2  '>
         <p className=' text-[38px] text-blue-800 font-bold sm:-translate-x-[20%] -translate-x-[30%] font-mono  w-full text-center ml-[20%]'>Tapez le nouveau mot de passe</p>
-        <Formik>
+        <Formik
+         initialValues={{
+          newPassword:'', confirmPassword:''
+        }}
+        validationSchema={validationSchema}
+        onSubmit ={ (values)=>{
+          setIsLoadingButton(true)
+       
+          
+          axios.post('https://server-social-benefits.vercel.app/updatePassword', {
+          email: email,
+          password: values.confirmPassword,
+          token : token
+          })
+        .then(response => {
+          console.log(response.data);
+          router.push('/Login')
+          setIsLoadingButton(false)
+        })
+        .catch(error => {
+          console.log(error?.response?.data.error);
+          setError(error?.response?.data.error)
+          setIsLoadingButton(false)
+        });
+        }}
+        
+        >
+
+
 
     
     <Form id='my-form'    className='w-full mt-4 flex items-center flex-col justify-center'>
-      <p className='text-red-600 font-bold text-sm mt-2 animate-pulse animate-bounce '></p>
+    <p className='text-red-600 font-bold text-sm mt-2 animate-pulse animate-bounce '>{error}</p>
 
       <div className="relative mt-2 w-full mb-3">
         <Field
           className={` peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:outline-none peer-focus:text-primary dark:border-neutral-200 dark:text-neutral-200 dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]`}
           type="password"
-          name="password"
-          id="password"
+          name="newPassword"
+          id="newPassword"
+          
           placeholder="password"
        />
 <label
     
     className="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary"
     >Nouveau mot de Passe</label
-  >        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="password" component="span"  />
+  >        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="newPassword" component="span"  />
       </div>
       <div className="relative w-full mb-3">
       <Field
-    type="confirmpassword"
+    type="password"
     className={` peer m-0 block h-[58px] w-full rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-4 text-base font-normal leading-tight text-neutral-700 transition duration-200 ease-linear placeholder:text-transparent focus:border-primary focus:pb-[0.625rem] focus:pt-[1.625rem] focus:text-neutral-700 focus:shadow-te-primary focus:outline-none peer-focus:text-primary dark:text-neutral-200  dark:focus:border-primary dark:peer-focus:text-primary [&:not(:placeholder-shown)]:pb-[0.625rem] [&:not(:placeholder-shown)]:pt-[1.625rem]`}
-    id="confirmpassword"
-    name='confirmpassword'
-    placeholder="confirmpassword" 
+    id="confirmPassword"
+    name='confirmPassword'
+    placeholder="confirmPassword" 
   
    />
   <label
@@ -53,7 +95,7 @@ export default  function Nouveau_mp() {
     className="pointer-events-none absolute left-0 top-0 origin-[0_0] border border-solid border-transparent px-3 py-4 text-neutral-500 transition-[opacity,_transform] duration-200 ease-linear peer-focus:-translate-y-2 peer-focus:translate-x-[0.15rem] peer-focus:scale-[0.85] peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:scale-[0.85] motion-reduce:transition-none dark:text-neutral-400 dark:peer-focus:text-primary"
     >Confirmer mot de passe</label
   >
-        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="confirmpassword" component="span"/>
+        <ErrorMessage className="text-red-500 text-xs error-message font-bold" name="confirmPassword" component="span"/>
       </div>
     
     

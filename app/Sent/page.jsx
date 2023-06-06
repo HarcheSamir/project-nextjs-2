@@ -1,10 +1,12 @@
 'use client'
 import Image from 'next/image'
 import Navbar from '@/components/NavbarOfLogin'
+import { useRouter } from 'next/navigation';
 
 
 
-export default  function Vérifier_Email() {
+export default  function Page() {
+  const router = useRouter();
 
 
   return (
@@ -20,6 +22,7 @@ export default  function Vérifier_Email() {
            
   <div className="w-full flex flex-col mt-2   items-center justify-center">
   <button 
+onClick={()=>{router.push('/ForgotPassword')}}
   type="submit" 
   className="text-[18px] w-[160px] h-[45px] flex justify-center items-center bg-white px-4 py-2 text-red-500 border border-red-600 font-bold text-sm gap-1 hover:scale-110 mt-20 rounded-[10px]"
   >
