@@ -7,6 +7,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import * as Yup from 'yup';
+import Link from "next/link";
 
 
 export default  function Nouveau_mp() {
@@ -14,6 +15,7 @@ export default  function Nouveau_mp() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [error, setError] = useState('');
+  const [done ,setDone] = useState(false) ;
 
   const token = searchParams.get('token');
   const email = searchParams.get('email');
@@ -27,6 +29,24 @@ export default  function Nouveau_mp() {
   });
   return (
   <div  className='w-screen h-screen flex flex-col'>
+
+
+{done &&
+<div className="w-full absolute top-0 left-0 z-50  bg-blue-900/30  h-screen">
+    <div className="h-screen  relative w-screen ">
+    <div className='md:w-[30%] w-[80%] rounded-xl overflow-hidden pb-4 absolute bg-white left-1/2 -translate-x-1/2 flex flex-col items-center top-1/2 -translate-y-1/2'>
+        <div className='h-3/5 flex items-center justify-center bg-green-500 w-full top-0'>
+          <AiOutlineCheckCircle className=' h-[50%] text-white  w-[50%]' />
+        </div>
+        <p className='font-bold text-2xl mt-2 font-mono  text-neutral-900'>Great!</p>
+        <p className='text-sm font-bold w-full px-4 text-center text-zinc-700'>Your password has been successfully changed.</p>
+        <Link href='/Login'><button className='flex flex-row whitespace-nowrap items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 mt-4 rounded-full'><AiOutlineCheck className='w-5 text-white h-5'/>Done</button></Link>
+      </div>
+    </div>
+
+</div>
+ }
+
     <Navbar/>
    <div  className='w-screen  h-full grid grid-cols-1 grid-rows-3 sm:grid-rows-1 sm:grid-cols-2'>
     <div className='h-full  sm:row-span-1 row-span-2 w-full relative    '>
