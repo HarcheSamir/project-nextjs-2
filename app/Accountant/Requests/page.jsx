@@ -7,8 +7,8 @@ import axios from 'axios';
 import ReactPaginate from "react-paginate";
 import { FiSearch } from 'react-icons/fi';
 import Image from "next/image";
-import ReactApexChart from 'react-apexcharts';
-import ApexCharts from 'apexcharts';
+import dynamic from 'next/dynamic';
+const ApexCharts = dynamic(() => import('react-apexcharts'), { ssr: false });
 import Loading from '@/components/Loading.js';
 import Transactions from '@/components/transactions';
 
