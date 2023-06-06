@@ -128,7 +128,7 @@ const handleRefresh = () => {
    
     <section className='flex flex-col    w-full sm:flex-row'>
 
-<div className='  sm:flex-none z-50  sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-visible flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
+<div className='  sm:flex-none z-50 sm:w-min relative justify-between py-2 pb-4  sm:pt-4 sm:pb-12 sm:h-screen   overflow-visible flex-row sm:flex-col items-center flex bg-[#2c3a51]'>
     <div className="flex items-center overflow-visible flex-col w-full">
 
 

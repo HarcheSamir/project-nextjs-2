@@ -9,6 +9,7 @@ import axios from "axios";
 import { FcRemoveImage} from "react-icons/fc";
 import Link from "next/link";
 import Loading from '@/components/Loading.js';
+import { IoMdCloseCircle } from "react-icons/io";
 
 
 export default function Page() {
@@ -87,6 +88,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
       }}
       
       validationSchema={Yup.object({
+        images: Yup.array().min(1, "Please select at least one image"),
         title : Yup.string().required(),
         description: Yup.string().required(),
         coverage:Yup.string().required() ,
@@ -98,6 +100,9 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
       onSubmit={(values, { setSubmitting }) => {
         setLoadingButton(true)
         const formData = new FormData();
+        for (let i = 0; i < values.images.length; i++) {
+          formData.append("pic", values.images[i]);
+        }
         formData.append('title', values.title);
         formData.append('description', values.description);
         formData.append('coverage', values.coverage);
@@ -271,7 +276,47 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 </div>
 
 
+<div className="w-full mt-12 col-span-2 flex flex-col">
+    <p className="text-zinc-700 font-bold mb-4 text-xl ml-4">Select Needed Documents :</p>
+<div className="grid gap-2 ml-6 w-fit grid-cols-2 md:grid-cols-3">
 
+{values.images && Array.from(values.images).map((image ,index) => (
+<div key={index} className="w-20 md:w-40 shadow ring-zinc-400 ring-2 rounded overflow-hidden md:h-40 relative h-20">
+<Image key={image.name} fill src={URL.createObjectURL(image)} alt="selected" className="rounded object-cover" />
+<div className="absolute -top-0 -right-0">
+        <button type="button" onClick={() => {
+          const newImages = [...values.images];
+          newImages.splice(index, 1);
+          setFieldValue("images", newImages);
+        }} >
+          <IoMdCloseCircle className="md:w-12 w-8 h-8 md:h-12 text-red-500" />
+        </button>
+      </div>
+</div>
+))}
+
+<div className=" aspect-square w-20 md:w-40  rounded border-[3px]  border-zinc-400  relative">
+<RiImageAddFill className="md:h-16  h-10 w-10 text-zinc-400 md:w-16 absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2" />
+<input
+id="images"
+name="images"
+type="file"
+accept=".png, .jpg, .jpeg"
+onChange={(event) => {
+const files = event.currentTarget.files;
+const fileArray = Array.from(files);
+setFieldValue("images", fileArray);
+}}
+className="opacity-0 cursor-pointer w-20 h-20 md:w-40 md:h-40 bg-red-900"
+/>
+
+
+</div>
+</div>
+
+<ErrorMessage name="images" component="span" className="text-red-500 ml-6 mt-2 text-xs error-message font-bold" />
+
+</div>
 
 
 
