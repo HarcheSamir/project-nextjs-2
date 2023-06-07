@@ -6,7 +6,7 @@ import 'react-icons'
 import { useSearchParams } from 'next/navigation';
 import axios  from 'axios';
 import Loading from '@/components/Loading.js';
-
+import { BsPeopleFill } from 'react-icons/bs';
 import Image from 'next/image';
 import { IoIosArrowDropdown } from 'react-icons/io';
 import { AiFillCaretLeft, AiFillCaretRight , AiOutlineClose } from "react-icons/ai";
