@@ -119,12 +119,19 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
               "Content-Type": "multipart/form-data",
             },
           })
-          .then((response) => {
+          .then( async(response) => {
             console.log(response.data);
-            setSubmitting(false);
+            try {
+              await axios.post('https://socialbenefitssamir.onrender.com/updateNotifs', {email:'employee1@com' });
+              console.log('Notifications updated successfully');
+              setSubmitting(false);
             setLoading(false)
             setLoadingButton(false)
             setDone(true)
+            } catch (error) {
+              console.error('Error updating notifications:', error);
+            }
+           
 
           })
           .catch((error) => {
