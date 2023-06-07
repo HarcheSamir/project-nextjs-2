@@ -232,7 +232,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
      { records[0].manager_review=='approved' &&    <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>{records[0].accountant_review=='approved' ? '.Validated By Accountant At : ' : '.Rejected By Accountant At :' }<span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {  year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",hour12: false
 })}</span> </label>}
 
-  {records[0].accountant_review=='approved' && records[0].manager_review=='approved' &&       <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Accountant Reply : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].reply}</span></label>}
+  {records[0].accountant_review=='approved' && records[0].manager_review=='approved' &&       <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Accountant Reply : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].accountant_motif}</span></label>}
   { records[0].accountant_review=='rejected' && records[0].manager_review=='approved'    &&   <label className='pl-8  text-[17px] block mt-4 font-bahnschrift font-bold text-[#0B59A1]'>.Rejection Purpose : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].accountant_motif}</span></label>
 }
 
