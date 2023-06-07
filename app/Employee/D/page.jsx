@@ -218,21 +218,22 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
         <div  className=' contb h-0 relative z-0 '> 
         <div className={`${down ? ' top-0 left-0 absolute border-[1px] border-[#D9D9D9]  w-full  duration-300    translate-y-0' : 'absolute   w-full left-0 border-[1px] border-[#D9D9D9]    z-0  duration-300  -translate-y-full'} `}>
-        <label className='pl-8 z-0  mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Approved By : <span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{records[0].reviewedBy}</span> </label>
+        <label className='pl-8 z-0  mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Reviewed By : <span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{records[0].reviewedBy}</span> </label>
         <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.At: <span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByManagerAt).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
+    year: "numeric",
+    month: "long",
+   day: "numeric",
+   hour: "numeric",
+    minute: "numeric" ,
+    hour12: false
 })}</span></label>
-        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.With requested Amont of : <span className=' text-[17px] font-bahnschrift font-normal text-gray-700'>{new Intl.NumberFormat('en-US').format(records[0].amount)} Da </span></label>
-        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Extras : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].manager_motif}</span></label>
-        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>{records[0].accountant_review=='approved' ? '.Validated By Accountant At : ' : '.Rejected By Accountant At' }<span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-})}</span> </label>
-{records[0].accountant_review=='approved' ?         <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Accountant Reply : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].reply}</span></label>
-  :         <label className='pl-8  text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Rejection purpose : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].accountant_motif}</span></label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.With requested Amont of : <span className=' text-[17px] font-bahnschrift font-normal text-gray-700'>{new Intl.NumberFormat('en-US').format(records[0].requested_amount)} Da </span></label>
+        <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Motif and details : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].manager_motif}</span></label>
+     { records[0].manager_review=='approved' &&    <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>{records[0].accountant_review=='approved' ? '.Validated By Accountant At : ' : '.Rejected By Accountant At :' }<span className='text-[17px] font-bahnschrift font-normal text-gray-700'>{new Date(records[0].reviewedByAccountantAt).toLocaleDateString('en-US', {  year: "numeric",month: "long",day: "numeric",hour: "numeric",minute: "numeric",hour12: false
+})}</span> </label>}
+
+  {records[0].accountant_review=='approved' && records[0].manager_review=='approved' &&       <label className='pl-8 mt-4 text-[17px] block font-bahnschrift font-bold text-[#0B59A1]'>.Accountant Reply : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].reply}</span></label>}
+  { records[0].accountant_review=='rejected' && records[0].manager_review=='approved'    &&   <label className='pl-8  text-[17px] block mt-4 font-bahnschrift font-bold text-[#0B59A1]'>.Rejection Purpose : <span className='text-[17px] font-bahnschrift font-normal text-gray-700 whitespace-pre-wrap'>{records[0].accountant_motif}</span></label>
 }
 
        
