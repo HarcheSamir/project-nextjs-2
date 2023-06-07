@@ -310,12 +310,12 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
  {approved &&  <Formik 
     initialValues={{
-        images: [],amount :  undefined
+        images: [],amount : ''
       }}
       
       validationSchema={Yup.object({
         images: Yup.array().min(1, "Please select at least one image"),
-        amount: Yup.number().required()
+        amount: Yup.string().required()
       })}
       onSubmit={(values, { setSubmitting }) => {
         setLoadingButton(true)
@@ -324,7 +324,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
         for (let i = 0; i < values.images.length; i++) {
           formData.append("pic", values.images[i]);
         }
-        formData.append('amount', values.amount);
+        formData.append('amount', parseInt(values.amount));
         formData.append('forr' , records[0].requestedBy)
           formData.append("id", id);
         

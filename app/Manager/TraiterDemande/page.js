@@ -229,11 +229,11 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
 
        <Formik
   initialValues={{
-    state: '' ,motif:'' , amount :null  ,
+    state: '' ,motif:'' , amount :''  ,
   }}
   validationSchema={approved ? Yup.object({
     state: Yup.string().required('Please select a state') ,
-    amount:Yup.number().required(), 
+    amount:Yup.string().required(), 
     motif : Yup.string().required()
   }) :Yup.object({
     state: Yup.string().required('Please select a state') ,
@@ -244,7 +244,7 @@ className='absolute z-10  w-7 sm:w-10 h-7 sm:h-10  sm:-translate-y-[50%] -transl
   
     axios
       .post("https://server-social-benefits.vercel.app/reviewRequest", {
-      id:id , review : values.state ,frrom:records[0].requestedBy ,  email:localStorage.getItem('id') ,amount:values.amount , motif : values.motif
+      id:id , review : values.state ,frrom:records[0].requestedBy ,  email:localStorage.getItem('id') ,amount:parseInt(values.amount) , motif : values.motif
       })
       .then(async(response) => {
         console.log(response.data);
