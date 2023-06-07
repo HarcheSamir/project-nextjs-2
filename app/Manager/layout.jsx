@@ -206,11 +206,8 @@ const handleRefresh = () => {
   <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><AiFillHome className='h-4 w-4'/> Home</div></Link>
 
   <Link href='/Manager/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><MdCollectionsBookmark className='h-4 w-4'/> Requests</div></Link>
-  <Link href='/Manager/AddRequest'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><AiFillFileAdd className='h-4 w-4'/> Add a request</div></Link>
   <Link href='/Manager/Employees'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillPeopleFill className='h-3 w-3'/> Employees</div></Link>
 
-      <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillCollectionFill className='h-3 w-3'/> Programs</div></Link>
-      <Link href='/Manager'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsStars className='h-3 w-3'/> Ads</div></Link>
 
     </div>
 
