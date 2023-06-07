@@ -89,15 +89,14 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
    <Formik 
     initialValues={{
-        images: [],description :  '' ,about : title ,amount:0
+        images: [],description :  '' ,about : title ,amount:''
       }}
       
       validationSchema={Yup.object({
         images: Yup.array().min(1, "Please select at least one image"),
         about: Yup.string().required(),
         description: Yup.string(),
-        amount : Yup.number().min(1, 'Amount must be greater than zero')
-        .required('Amount is required')
+        amount : Yup.string().required()
       })}
       onSubmit={(values, { setSubmitting }) => {
         console.log(selectedItem)
@@ -112,7 +111,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
         formData.append("description",values.description);
         formData.append("service" ,id) ;
         formData.append("service_title" ,service) ;
-        formData.append("requested_amount", values.amount)
+        formData.append("requested_amount", parseInt(values.amount))
         axios
           .post("https://server-social-benefits.vercel.app/uploadRequest", formData, {
             headers: {
