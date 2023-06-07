@@ -59,8 +59,8 @@ export default function AccordionItem({benefit_id, title, description, coverage,
     <div className="border-b px-4 z-50  w-full max-w-[65rem]">
       <div className="w-full py-2 text-left focus:outline-none">
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center flex-row">
-          <p className="text-xl overflow-hidden text-ellipsis  cursor-pointer w-[70%] truncate  text-[#2C435A]" onClick={handleServiceClick}>
+          <div className="flex w-full items-center flex-row">
+          <p className="text-xl overflow-hidden text-ellipsis  cursor-pointer w-[50%] truncate  text-[#2C435A]" onClick={handleServiceClick}>
             {title} : 
           </p>
           {expired=='yes' && <div className="rounded w-min px-2 ml-4 h-min animate-pulse bg-red-500 font-bold text-white text-[10px]">Expired</div>}
