@@ -108,7 +108,7 @@ export default function Transactions() {
 
       <div className="flex bg-white/95 items-cener px-4 pt-4 mx-4 py-2 border-b-[1px] border-p-8 border-[#2C435A] w-full sticky ">
         <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold  text-[#2C435A] ">#</p>
-        <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Service</p>
+        <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Caisse</p>
         <p className="md:w-[30%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Montant</p>
         <p className="md:w-[40%] w-[50%]  cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Type</p>
         <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold  text-[#2C435A]  ml-2">Date</p>
@@ -129,7 +129,7 @@ export default function Transactions() {
               className="w-full cursor-pointer h-16 rounded-lg hover:bg-blue-200 hover:scale-[101%] mb-1 px-4 mx-4 relative mt-1 items-center flex "
             >
               <p className="md:w-[3%] w-[5%] cursor-default text-sm font-bold text-[#2C435A] "> {index + 1 + (pagination.currentPage - 1) * 10} </p>
-              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{transaction.t_service_title}</p>
+              <p className="md:w-[30%] w-[50%] cursor-default text-sm font-bold text-[#2C435A] ml-2">{transaction.t_service_title || 'global'}</p>
               <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ${getStatusColor(transaction.t_amount)} ml-2`}>{transaction.t_amount > 0 ?  `+${transaction.t_amount}` : transaction.t_amount} {"  DA"}</p>
               <p className={`md:w-[40%] w-[50%] cursor-default text-sm font-bold } ml-2 text-[#2C435A] `}> {transaction.t_type=='crate' ? 'Division du budget' : "Acceptation d'une demande"}  </p>
               <p className={`md:w-[30%] w-[50%] cursor-default text-sm font-bold ml-2`}>
@@ -144,7 +144,7 @@ export default function Transactions() {
                  </span>
               </p>
               <p className={`md:w-[30%] cursor-pointer flex items-center justify-center  ml-2`}>
-  {transaction.t_type === 'crate' ? (<span className="text-gray-400 text-italic" >"Pas de preuve"</span>
+  {transaction.t_image_url === null ? (<span className="text-gray-400 text-italic" >"Pas de preuve"</span>
   ) : ( <> <Link legacyBehavior href={transaction.t_image_url} passHref>
     <a target="_blank" rel="noopener noreferrer"> <FontAwesomeIcon 
             

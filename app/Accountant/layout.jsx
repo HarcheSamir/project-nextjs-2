@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Loading from '@/components/Loading.js';
-
+import { BsFillClipboardPlusFill } from 'react-icons/bs';
 import Link from 'next/link';
 import { AiOutlineMenu, AiOutlineClose, AiFillFileAdd ,AiFillHome } from 'react-icons/ai';
 import {BsFillCollectionFill ,BsStars, BsStar , BsFillPeopleFill} from 'react-icons/bs'
@@ -200,6 +200,8 @@ const handleRefresh = () => {
   <div className="sm:flex hidden   flex-col w-full bg-[#35465e]   mt-4 ">
   <Link href='/Accountant'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><AiFillHome className='h-4 w-4'/> Home</div></Link>
   <Link href='/Accountant/Budget'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><RiMoneyDollarCircleFill className='h-5 w-5'/> Budget</div></Link>
+  <Link href='/Accountant/BudgetTransaction'><div className='py-4 hover:bg-[#4b6485] px-2 flex hover:scale-105 gap-2 items-center font-bold text-xs text-neutral-300'><BsFillClipboardPlusFill className='h-4 w-4'/>Allocate Funds</div></Link>
+
   <Link href='/Accountant/Requests'><div className='py-4 hover:bg-[#4b6485]  px-2 flex hover:scale-105  gap-2 items-center font-bold text-xs text-neutral-300'><MdCollectionsBookmark className='h-4 w-4'/> Archive</div></Link>
 
 
