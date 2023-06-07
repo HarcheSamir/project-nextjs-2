@@ -39,7 +39,7 @@ export default function Programs() {
           </p>
           {items
             .filter(item => item.title === chapter) // Filter items by chapter name
-            .map(({ benefit_title, description, coverage, needed_proofs, imageUrl }, index) => (
+            .map(({benefit_id, benefit_title, description, coverage, needed_proofs, imageUrl,  expired }, index) => (
               <AccordionItem
                 key={index}
                 title={benefit_title}
@@ -47,6 +47,8 @@ export default function Programs() {
                 coverage={coverage}
                 needed_proofs={needed_proofs}
                 imageUrl={imageUrl}
+                expired={expired}
+                benefit_id={benefit_id}
               />
             ))}
         </div>

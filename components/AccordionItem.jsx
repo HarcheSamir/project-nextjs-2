@@ -4,13 +4,50 @@ import { CgShapeHexagon } from 'react-icons/cg'
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
 import Image from "next/image";
-export default function AccordionItem({ title, description, coverage, needed_proofs , imageUrl}) {
+import { FaSpinner } from 'react-icons/fa';
+import axios from "axios";
+export default function AccordionItem({benefit_id, title, description, coverage, needed_proofs , imageUrl, expired}) {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false); 
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
+
+  
+  
+    const yesUpdateExpiration = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post(`https://server-social-benefits.vercel.app/setExpired/${benefit_id}`, { expired: "yes" });
+        console.log(response.data); // Optional: Handle the response data as needed
+      } catch (error) {
+        console.error(error);
+        // Optional: Handle error states or display error messages
+      } finally {
+       window.location.reload()
+        setLoading(false);
+      }
+    };
+  
+
+
+    const noUpdateExpiration = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.post(`https://server-social-benefits.vercel.app/setExpired/${benefit_id}`, { expired: "no" });
+        console.log(response.data); // Optional: Handle the response data as needed
+      } catch (error) {
+        console.error(error);
+        // Optional: Handle error states or display error messages
+      } finally {
+        window.location.reload()
+        setLoading(false);
+      }
+    };
+  
   const handleServiceClick = () => {
     setShowModal(true);
+    console.log(benefit_id)
     console.log("selected service : ", title )
   };
 
@@ -22,9 +59,13 @@ export default function AccordionItem({ title, description, coverage, needed_pro
     <div className="border-b px-4 z-50  w-full max-w-[65rem]">
       <div className="w-full py-2 text-left focus:outline-none">
         <div className="flex w-full items-center justify-between">
-          <p className="text-xl cursor-pointer w-[50%] truncate  text-[#2C435A]" onClick={handleServiceClick}>
-            {title} :
+          <div className="flex items-center flex-row">
+          <p className="text-xl overflow-hidden text-ellipsis  cursor-pointer w-[70%] truncate  text-[#2C435A]" onClick={handleServiceClick}>
+            {title} : 
           </p>
+          {expired=='yes' && <div className="rounded w-min px-2 ml-4 h-min animate-pulse bg-red-500 font-bold text-white text-[10px]">Expired</div>}
+          </div>
+        
           <IoIosArrowDropdown
             onClick={() => setIsOpen(!isOpen)}
             className={`w-6 h-6  transition-transform cursor-pointer text-red-500 ${
@@ -61,6 +102,7 @@ export default function AccordionItem({ title, description, coverage, needed_pro
       </div>
 
       {showModal && (
+        
         <div className="fixed inset-0 z-50 rounded  flex justify-center overflow-hidden items-center bg-gray-800 bg-opacity-50">
         <div className="overflow-hidden w-[70%] max-h-[30rem] h-full   rounded"> 
           <div className="bg-white  text-[20px]  max-h-[30rem] overflow-y-scroll  flex flex-col p-10  rounded-[10px]">
@@ -92,12 +134,31 @@ export default function AccordionItem({ title, description, coverage, needed_pro
   </a>
 </Link> 
 <div className="flex justify-end mt-4"> {/* Add mt-4 class */}
-        <button
-          onClick={handleCloseModal}
-          className="text-[16px] w-[140px] h-[45px] flex justify-center items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 rounded-[10px]"
-        >
-          Fermer
-        </button>
+
+
+{expired=='no' ? <button    
+                onClick={()=>{yesUpdateExpiration()}}
+                className="text-[16px] mr-4 w-[140px] h-[45px] flex justify-center items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 rounded-[10px]"
+              >
+             {loading ? <FaSpinner className="spin" /> : 'suspend'}
+              </button> :
+              
+              <button    
+              onClick={()=>{noUpdateExpiration()}}
+                            className="text-[16px] mr-4 w-[140px] h-[45px] flex justify-center items-center bg-green-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 rounded-[10px]"
+            >
+             {loading ? <FaSpinner className="spin" /> : 'resume'}
+            </button>}
+
+
+<button
+                onClick={handleCloseModal}
+                className="text-[16px] w-[140px] h-[45px] flex justify-center items-center bg-white px-4 py-2 text-red-500 border border-red-500 font-bold text-sm gap-1 hover:scale-110 mr-5 rounded-[10px]"
+              >
+                Fermer
+              </button>
+
+            
       </div>
 
           </div></div>
