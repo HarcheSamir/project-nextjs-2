@@ -4,7 +4,7 @@ import { CgShapeHexagon } from 'react-icons/cg'
 import { useRouter } from 'next/navigation';
 import Image from "next/image";
 import Link from "next/link";
-export default function AccordionItem_Employee({ title, description, coverage, needed_proofs , imageUrl}) {
+export default function AccordionItem_Employee({service, service_title , title, description, coverage, needed_proofs , imageUrl}) {
   const [isOpen, setIsOpen] = useState(false);
   const [showModal, setShowModal] = useState(false); 
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function AccordionItem_Employee({ title, description, coverage, n
   const handleAddRequest = () => {
     router.push({
       pathname: '/Accountant/AddRequestt',
-      query: { title: encodeURIComponent(title) }
+      query: { title: encodeURIComponent(title) ,id: encodeURIComponent(service) ,service:encodeURIComponent(service_title)}
     });
     
   };
@@ -103,7 +103,7 @@ export default function AccordionItem_Employee({ title, description, coverage, n
               </button>
 
               <button    
-                onClick={()=>{router.push(`/Employee/AddRequestt?title=${encodeURIComponent(title)}`);}}
+                onClick={()=>{router.push(`/Employee/AddRequestt?title=${encodeURIComponent(title)}&id=${encodeURIComponent(service)}&service=${encodeURIComponent(service_title)}`);}}
                 className="text-[16px] w-[140px] h-[45px] flex justify-center items-center bg-red-500 px-4 py-2 text-white font-bold text-sm gap-1 hover:scale-110 rounded-[10px]"
               >
                 Ajouter demande

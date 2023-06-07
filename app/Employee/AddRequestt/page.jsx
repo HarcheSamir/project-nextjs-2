@@ -19,6 +19,9 @@ export default function Page() {
     const [done ,setDone] = useState(false) ;
     const searchParams = useSearchParams();
     const title = searchParams.get('title');
+    const id = searchParams.get('id');
+    const service = searchParams.get('service');
+
 
 const [isLoadingButton, setLoadingButton] = useState(false) ;
     useEffect(() => {
@@ -86,14 +89,15 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
    <Formik 
     initialValues={{
-        images: [],description :  '' ,about : title
+        images: [],description :  '' ,about : title ,amount:0
       }}
       
       validationSchema={Yup.object({
         images: Yup.array().min(1, "Please select at least one image"),
         about: Yup.string().required(),
         description: Yup.string(),
-        amount : Yup.number().required() 
+        amount : Yup.number().min(1, 'Amount must be greater than zero')
+        .required('Amount is required')
       })}
       onSubmit={(values, { setSubmitting }) => {
         console.log(selectedItem)
@@ -106,8 +110,8 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
        formData.append("requestedBy", localStorage.getItem('id'));
         formData.append("about", values.about);
         formData.append("description",values.description);
-        formData.append("service" ,selectedItem.id) ;
-        formData.append("service_title" ,selectedItem.title) ;
+        formData.append("service" ,id) ;
+        formData.append("service_title" ,service) ;
         formData.append("requested_amount", values.amount)
         axios
           .post("https://server-social-benefits.vercel.app/uploadRequest", formData, {
@@ -148,6 +152,7 @@ const [isLoadingButton, setLoadingButton] = useState(false) ;
 
 <div className="col-span-2  relative mb-3">
   <Field as="select" name="about" 
+  disabled
    onChange={(event) => {
     handleChange(event);
     setSelectedItem(items.find((item) => item.benefit_title === event.target.value))

@@ -36,9 +36,11 @@ export default function Page() {
           </p>
           {items
             .filter(item => item.title === chapter) // Filter items by chapter name
-            .map(({ benefit_title, description, coverage, needed_proofs, imageUrl }, index) => (
+            .map(({service,title ,  benefit_title, description, coverage, needed_proofs, imageUrl }, index) => (
               <AccordionItem_Employee
                 key={index}
+                service={service}
+                service_title={title}
                 title={benefit_title}
                 description={description}
                 coverage={coverage}
