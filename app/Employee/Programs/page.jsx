@@ -10,7 +10,7 @@ export default function Page() {
   const [chapterNames, setChapterNames] = useState([]);
 
   useEffect(() => {
-    fetch('https://server-social-benefits.vercel.app/socialBenefits')
+    fetch('https://server-social-benefits.vercel.app/socialBenefits2')
       .then(response => response.json())
       .then(data => {
         setItems(data);
